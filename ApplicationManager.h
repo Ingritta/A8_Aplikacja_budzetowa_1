@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "UserManager.h"
-#include "ContactManager.h"
 #include "User.h"
 #include "TextFile.h"
 
