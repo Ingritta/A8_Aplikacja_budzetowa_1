@@ -1,0 +1,51 @@
+# depslib dependency file v1.0
+1686925732 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\filewithusers.cpp
+	"FileWithUsers.h"
+
+1686925979 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\filewithusers.h
+	<iostream>
+	<vector>
+	<fstream>
+	<cstdlib>
+	"User.h"
+	"SupportiveMethods.h"
+	"TextFile.h"
+
+1686924132 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\user.h
+	<iostream>
+
+1686922838 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\supportivemethods.h
+	<iostream>
+	<sstream>
+	<string>
+	<cctype>
+	<algorithm>
+
+1686925915 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\textfile.h
+	<iostream>
+
+1686926743 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\supportivemethods.cpp
+	<sstream>
+	<cctype>
+	<string>
+	"SupportiveMethods.h"
+
+1686924126 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\textfile.cpp
+	"TextFile.h"
+	"FileWithUsers.h"
+
+1686923826 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\user.cpp
+	"User.h"
+
+1686926743 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.cpp
+	"UserManager.h"
+
+1686925732 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<fstream>
+	<sstream>
+	"User.h"
+	"FileWithUsers.h"
+
