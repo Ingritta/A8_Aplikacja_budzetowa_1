@@ -1,17 +1,17 @@
-#ifndef TEXTFILE_H
-#define TEXTFILE_H
+#ifndef EXPENSESFILE_H
+#define EXPENSESFILE_H
 
 #include <iostream>
 
 using namespace std;
 
-class TextFile {
+class ExpensesFile {
 protected:
 
     const string NAME_OF_FILE;
 
 public:
-    TextFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {}
+    ExpensesFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {}
     string getFileName();
     bool checkIfFileIsEmpty();
 };

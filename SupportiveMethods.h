@@ -6,6 +6,8 @@
 #include <string>
 #include <cctype>
 #include <algorithm>
+#include <iomanip>
+
 
 using namespace std;
 
@@ -18,7 +20,8 @@ public:
     static string replaceFirstLetterForCapitalRestForSmall(string text);
     static char loadChar();
     static int loadInteger();
-    static int giveIdOfSelectedContact();
+    static float convertStringToFloat(string number);
+    //static int giveIdOfSelectedContact();
 };
 
 #endif

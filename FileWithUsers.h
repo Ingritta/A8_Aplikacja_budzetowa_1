@@ -3,21 +3,19 @@
 
 #include <iostream>
 #include <vector>
-#include <fstream>
 #include <cstdlib>
 
 #include "User.h"
 #include "SupportiveMethods.h"
-#include "TextFile.h"
+#include "XmlFile.h"
+#include "Markup.h"
 
 using namespace std;
 
-class FileWithUsers : public TextFile {
-    string convertUserDataToLinesWithDataSeparatedByPipes(User user);
-    User getDataOfUser(string dataOfSingleUserSeparatedByPipes);
+class FileWithUsers : public XmlFile {
 
 public:
-    FileWithUsers(string nameOfFile) : TextFile(nameOfFile) {};
+    FileWithUsers(string nameOfFile) : XmlFile(nameOfFile) {};
     void addUserToFile(User user);
     vector <User> readUsersFromFile();
     void saveAllUsersInFile(vector <User> &users);

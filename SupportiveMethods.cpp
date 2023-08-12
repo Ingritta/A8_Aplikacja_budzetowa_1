@@ -19,6 +19,12 @@ int SupportiveMethods::convertStringToInt(string number) {
     return integer;
 }
 
+float SupportiveMethods::convertStringToFloat(string number) {
+    float floatNumber = stof(number);
+
+    return floatNumber;
+}
+
 string SupportiveMethods::getNumber(string text, int signPosition) {
     string number = "";
     while(isdigit(text[signPosition]) == true) {
@@ -71,11 +77,4 @@ int SupportiveMethods::loadInteger() {
         cout << "To nie jest liczba. Wpisz ponownie. " << endl;
     }
     return number;
-}
-
-int SupportiveMethods::giveIdOfSelectedContact() {
-    int idOfSelectedContact = 0;
-    cout << "Podaj numer ID Adresata: ";
-    idOfSelectedContact = loadInteger();
-    return idOfSelectedContact;
 }

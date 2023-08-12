@@ -20,7 +20,7 @@ void UserManager::userRegistration() {
     User user = giveDataOfNewUser();
 
     users.push_back(user);
-    fileWithUsers.addUserToFile(user);
+    //fileWithUsers.addUserToFile(user);
 
     cout << endl << "Konto zalozono pomyslnie" << endl << endl;
     system("pause");
@@ -138,3 +138,6 @@ void UserManager::userLogout() {
     loggedUserId = 0;
 }
 
+char UserManager::selectOptionFromUserMenu(){
+    return 0;
+}

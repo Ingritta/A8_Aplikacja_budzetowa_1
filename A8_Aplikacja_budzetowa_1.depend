@@ -1,30 +1,32 @@
 # depslib dependency file v1.0
-1686925732 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\filewithusers.cpp
+1691780155 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\filewithusers.cpp
 	"FileWithUsers.h"
+	"Markup.h"
 
-1686925979 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\filewithusers.h
+1691779707 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\filewithusers.h
 	<iostream>
 	<vector>
-	<fstream>
 	<cstdlib>
 	"User.h"
 	"SupportiveMethods.h"
-	"TextFile.h"
+	"XmlFile.h"
+	"Markup.h"
 
 1686924132 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\user.h
 	<iostream>
 
-1686922838 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\supportivemethods.h
+1691761702 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\supportivemethods.h
 	<iostream>
 	<sstream>
 	<string>
 	<cctype>
 	<algorithm>
+	<iomanip>
 
 1686925915 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\textfile.h
 	<iostream>
 
-1686926743 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\supportivemethods.cpp
+1691757934 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\supportivemethods.cpp
 	<sstream>
 	<cctype>
 	<string>
@@ -37,15 +39,147 @@
 1686923826 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\user.cpp
 	"User.h"
 
-1686926743 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.cpp
+1691773162 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.cpp
 	"UserManager.h"
 
-1686925732 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.h
+1691779833 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.h
 	<iostream>
 	<vector>
 	<windows.h>
 	<fstream>
 	<sstream>
 	"User.h"
+	"XmlFile.h"
 	"FileWithUsers.h"
+	"DateManager.h"
+
+1691781020 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\applicationmanager.cpp
+	"ApplicationManager.h"
+
+1691781020 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\applicationmanager.h
+	<iostream>
+	"UserManager.h"
+	"User.h"
+	"XmlFile.h"
+	"TransactionManager.h"
+	"DateManager.h"
+
+1691663816 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\datemanager.h
+	<iostream>
+	<sstream>
+	<string>
+	<cctype>
+	<algorithm>
+	"SupportiveMethods.h"
+
+1691583997 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\date.h
+	<iostream>
+
+1691574028 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\date.cpp
+	"Date.h"
+
+1691665013 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\datemanager.cpp
+	<iostream>
+	<ctime>
+	<sstream>
+	<cstdlib>
+	<string>
+	<algorithm>
+	<conio.h>
+	"DateManager.h"
+
+1691781020 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\main.cpp
+	<iostream>
+	"ApplicationManager.h"
+
+1691663262 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\balancemanager.cpp
+	"BalanceManager.h"
+	"SupportiveMethods.h"
+	"IncomesFile.h"
+	"ExpensesFile.h"
+
+1691663243 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\balancemanager.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<fstream>
+	<sstream>
+	<string>
+	"IncomesFile.h"
+	"ExpensesFile.h"
+
+1691777999 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\expensesfile.cpp
+	"ExpensesFile.h"
+	"FileWithUsers.h"
+
+1691606105 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\expensesfile.h
+	<iostream>
+
+1691675065 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\incomesfile.cpp
+	"IncomesFile.h"
+
+1691777457 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\incomesfile.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<fstream>
+	<sstream>
+	<string>
+	"FileWithUsers.h"
+	"Transaction.h"
+
+1691778279 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\xmlfile.h
+	<iostream>
+	"Markup.h"
+
+1691781081 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transactionmanager.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<fstream>
+	<sstream>
+	<string>
+	<iomanip>
+	<cctype>
+	<cstdlib>
+	<string>
+	<algorithm>
+	<conio.h>
+	"TransactionFile.h"
+	"Transaction.h"
+	"SupportiveMethods.h"
+
+1691670713 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transaction.h
+	<iostream>
+
+1691670689 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transaction.cpp
+	"Transaction.h"
+
+1691781937 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transactionmanager.cpp
+	"TransactionManager.h"
+
+1691777768 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\xmlfile.cpp
+	"XmlFile.h"
+	"FileWithUsers.h"
+	"Markup.h"
+
+1688847865 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\markup.h
+	<stdlib.h>
+	<string.h>
+	<string>
+	<afx.h>
+
+1691781937 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transactionfile.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<string>
+	"SupportiveMethods.h"
+	"Transaction.h"
+	"XmlFile.h"
+
+1691780059 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transactionfile.cpp
+	"TransactionFile.h"
+	"TransactionManager.h"
+	"SupportiveMethods.h"
 

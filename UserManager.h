@@ -8,7 +8,9 @@
 #include <sstream>
 
 #include "User.h"
+#include "XmlFile.h"
 #include "FileWithUsers.h"
+#include "DateManager.h"//?
 
 using namespace std;
 
@@ -16,7 +18,6 @@ class UserManager {
     int loggedUserId;
     vector <User> users;
     FileWithUsers fileWithUsers;
-
     User giveDataOfNewUser();
     int getNewUserId();
     bool checkIfLoginExists(string login);
@@ -32,6 +33,7 @@ public:
     void changePasswordOfLoggedUser();
     void saveAllUsersInFile();
     char selectOptionFromMainMenu();
+    char selectOptionFromUserMenu();
     bool checkIfUserIsLogged ();
     int getLoggedUserId();
     void userLogout();

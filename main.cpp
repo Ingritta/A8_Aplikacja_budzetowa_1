@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    ApplicationManager ApplicationManager ("Users.txt", "Contacts.txt");
+    ApplicationManager ApplicationManager ("Users.xml", "Transactions.xml");
 
     char choice;
 
@@ -35,22 +35,22 @@ int main() {
 
             switch (choice) {
             case '1':
-                ApplicationManager.addContact();
+                ApplicationManager.addDetailsOfTransaction();
                 break;
             case '2':
-                ApplicationManager.searchContactByName();
+               // ApplicationManager.searchContactByName();
                 break;
             case '3':
-                ApplicationManager.searchContactBySurname();
+                //ApplicationManager.searchContactBySurname();
                 break;
             case '4':
-                ApplicationManager.printAllContacts();
+                //ApplicationManager.printAllContacts();
                 break;
             case '5':
-                ApplicationManager.removeContact();
+                //ApplicationManager.removeContact();
                 break;
             case '6':
-                ApplicationManager.changeDetailsOfContact();
+                //ApplicationManager.changeDetailsOfContact();
                 break;
             case '7':
                 ApplicationManager.changePasswordOfLoggedUser();

@@ -1,17 +1,17 @@
 #include "ApplicationManager.h"
 
-void ::userRegistration() {
+void ApplicationManager::userRegistration() {
     userManager.userRegistration();
 }
 
-void ::showAllUsers() {
+void ApplicationManager::showAllUsers() {
     userManager.showAllUsers();
 }
 
 void ApplicationManager::userLogin() {
     userManager.userLogin();
     if (userManager.checkIfUserIsLogged () == false) {
-        contactManager = new ContactManager(NAME_OF_FILE_WITH_CONTACTS, userManager.getLoggedUserId());
+        transactionManager = new TransactionManager(NAME_OF_FILE_WITH_TRANSACTIONS, userManager.getLoggedUserId());
     }
 }
 
@@ -21,8 +21,8 @@ void ApplicationManager::changePasswordOfLoggedUser() {
 
 void ApplicationManager::userLogout() {
     userManager.userLogout();
-    delete contactManager;
-    contactManager = NULL;
+    delete transactionManager;
+    transactionManager = NULL;
 }
 
 char ApplicationManager::selectOptionFromMainMenu() {
@@ -30,29 +30,13 @@ char ApplicationManager::selectOptionFromMainMenu() {
 }
 
 char ApplicationManager::selectOptionFromUserMenu() {
-    return contactManager -> selectOptionFromUserMenu();
-}
-
-bool ApplicationManager::checkIfContactsAreWritten() {
-    return contactManager -> checkIfContactsAreWritten();
+    return transactionManager->selectOptionFromUserMenu();
 }
 
 bool ApplicationManager::checkIfUserIsLogged () {
     return userManager.checkIfUserIsLogged ();
 }
 
-void ApplicationManager::searchContactByName() {
-    contactManager -> searchContactByName();
-}
-
-void ApplicationManager::searchContactBySurname() {
-    contactManager -> searchContactBySurname();
-}
-
-void ApplicationManager::removeContact() {
-    contactManager -> removeContact();
-}
-
-void ApplicationManager::changeDetailsOfContact() {
-    contactManager -> changeDetailsOfContact();
+void ApplicationManager::addDetailsOfTransaction() {
+    transactionManager->addDetailsOfTransaction();
 }

@@ -1,44 +1,39 @@
-#ifndef A_H
-#define ADDRESSBOOK_H
+#ifndef APPLICATIONMANAGER_H
+#define APPLICATIONMANAGER_H
 
 #include <iostream>
 #include "UserManager.h"
 #include "User.h"
-#include "TextFile.h"
+#include "XmlFile.h"
+#include "TransactionManager.h"
 
 using namespace std;
 
 class ApplicationManager {
     UserManager userManager;
-    ContactManager *contactManager;
-    const string NAME_OF_FILE_WITH_CONTACTS;
+    TransactionManager *transactionManager;
+    DateManager dateManager; //?
+    const string NAME_OF_FILE_WITH_TRANSACTIONS;
 
 public:
-   ApplicationManager(string nameOfFileWithUsers, string nameOfFileWithContacts) :  userManager(nameOfFileWithUsers), NAME_OF_FILE_WITH_CONTACTS(nameOfFileWithContacts) {
-        contactManager = NULL;
+    ApplicationManager(string nameOfFileWithUsers, string nameOfFileWithTransactions) : userManager(nameOfFileWithUsers), NAME_OF_FILE_WITH_TRANSACTIONS (nameOfFileWithTransactions) {
+        transactionManager = NULL;
     };
     ~ApplicationManager() {
-        delete contactManager;
-        contactManager = NULL;
+        delete transactionManager;
+        transactionManager = NULL;
     };
     void userRegistration();
     void readUsersFromFile();
     void changePasswordOfLoggedUser();
     char selectOptionFromMainMenu();
     char selectOptionFromUserMenu();
-    void addContact();
-    void readContactsOfLoggedUserFromFile();
-    void printAllContacts();
     bool checkIfUserIsLogged();
-    bool checkIfContactsAreWritten();
     void userLogout();
     int getLoggedUserId();
     void userLogin();
     void showAllUsers();
-    void searchContactByName();
-    void searchContactBySurname();
-    void removeContact();
-    void changeDetailsOfContact();
+    void addDetailsOfTransaction();
 };
 
 #endif

@@ -1,5 +1,70 @@
 #include "FileWithUsers.h"
+#include "Markup.h"
 
+void FileWithUsers::saveAllUsersInFile(vector <User> &users)
+{
+    /*
+    fstream textFile;
+    string lineWithUserData = "";
+    vector <User>::iterator itrEnd = --users.end();
+
+    textFile.open(NAME_OF_FILE.c_str(), ios::out);
+
+    if (textFile.good() == true) {
+        for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
+
+            lineWithUserData = convertUserDataToLinesWithDataSeparatedByPipes(*itr);
+
+            if (itr == itrEnd) {
+                textFile << lineWithUserData;
+            } else {
+                textFile << lineWithUserData << endl;
+            }
+            lineWithUserData = "";
+        }
+    } else {
+
+        cout << "Nie mozna otworzyc pliku " << NAME_OF_FILE << endl;
+    }
+    textFile.close();
+    */
+}
+
+vector <User> FileWithUsers::readUsersFromFile() {
+    /*
+    User user;
+    vector <User> users;
+    string dataOfSingleUserSeparatedByPipes = "";
+    fstream textFile;
+
+    textFile.open(NAME_OF_FILE.c_str(), ios::in);
+
+    if (textFile.good() == true) {
+        while (getline(textFile, dataOfSingleUserSeparatedByPipes)) {
+            user = getDataOfUser(dataOfSingleUserSeparatedByPipes);
+            users.push_back(user);
+        }
+        textFile.close();
+    }
+    return users;
+    */
+}
+
+
+void FileWithUsers::addUserToFile (User user) {
+    /*
+    CMarkup xml;
+
+    bool fileExists = xml.Load(NAME_OF_FILE.c_str());
+
+    if (!fileExists) {
+        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+        xml.AddElem("Users");
+    }
+    xml.AddElem("User","2");
+    */
+}
+/*
 void FileWithUsers::addUserToFile (User user) {
     string lineWithUserData = "";
     fstream textFile;
@@ -98,3 +163,4 @@ void FileWithUsers::saveAllUsersInFile(vector <User> &users)
     }
     textFile.close();
 }
+*/
