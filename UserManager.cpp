@@ -18,9 +18,13 @@ char UserManager::selectOptionFromMainMenu() {
 
 void UserManager::userRegistration() {
     User user = giveDataOfNewUser();
-
+    /*
+    cout << "id" << user.getId() << endl;//?
+    cout << "id" << user.getLogin() << endl;
+    cout << "id" << user.getPassword() <<endl;
+*/
     users.push_back(user);
-    //fileWithUsers.addUserToFile(user);
+    fileWithUsers.addUserToFile(user);
 
     cout << endl << "Konto zalozono pomyslnie" << endl << endl;
     system("pause");
@@ -32,7 +36,7 @@ User UserManager::giveDataOfNewUser() {
     user.setId(getNewUserId());
     string login;
 
-    do {
+   do {
         cout << "Podaj login: ";
         cin >> login;
         user.setLogin(login);
@@ -46,6 +50,7 @@ User UserManager::giveDataOfNewUser() {
 }
 
 int UserManager::getNewUserId() {
+
     if (users.empty() == true)
         return 1;
     else
@@ -53,7 +58,6 @@ int UserManager::getNewUserId() {
 }
 
 bool UserManager::checkIfLoginExists(string login) {
-
     for (size_t i = 0; i < users.size(); i++) {
         if (users[i].getLogin() == login) {
             cout << endl << "Istnieje uzytkownik o takim loginie." << endl;
@@ -68,6 +72,7 @@ void UserManager::showAllUsers() {
         cout << users[i].getId() << endl;
         cout << users[i].getLogin() << endl;
         cout << users[i].getPassword() << endl;
+        system("pause");
     }
 }
 

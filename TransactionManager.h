@@ -16,6 +16,7 @@
 #include "TransactionFile.h"
 #include "Transaction.h"
 #include "SupportiveMethods.h"
+#include "DateManager.h"
 
 using namespace std;
 
@@ -25,28 +26,28 @@ class TransactionManager {
     vector <Transaction> transactions;
     TransactionFile transactionFile;
     int amountOfTransactions;
-    string writtenQuota = "";//do usuniecia
     const string NAME_OF_FILE;
     Transaction giveDataOfNewTransaction();
 
 public:
-    TransactionManager(string nameOfFileWithTransactions, int loggedUserId) : LOGGED_USER_ID(loggedUserId), transactionFile(nameOfFileWithTransactions){
+    TransactionManager(string nameOfFileWithTransactions, int loggedUserId) : transactionFile(nameOfFileWithTransactions), LOGGED_USER_ID(loggedUserId) {
     loggedUserId = 0;
     transactions = transactionFile.readTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
     };
+    DateManager dateManager;
     void addDetailsOfTransaction();
     void readTransactionsOfLoggedUserFromFile();
     bool checkIfDataIsWritten();
     char selectOptionFromUserMenu();
-    void printAllDetails();
+    void printAllTransactions();
     void printAmountOfTransactions();
     void removeTransaction();
     void changeDetailsOfTransaction();
     void printDetailsOfTransaction(Transaction transaction);
     void setAmountOfTransactions(int newAmountOfTransactions);
     int getTransactionId();
-    string checkAndConvertWrittenQuota(string);
-    int findSignPosition(string);
+    int getDate();//?
+    int askAboutDate();
 };
 
 #endif

@@ -8,34 +8,34 @@
 #include <algorithm>
 
 #include "SupportiveMethods.h"
+#include "Date.h"
+#include "Transaction.h"
 
 using namespace std;
 
 class DateManager {
 
-    string data;
-    string date;
+private:
+    string data;//?
+    int dateFromOS;
     string writtenDate;
-    int dateInt;
+    string date;
 
 public:
+
     const string getDateFromOs();
-    void askAboutDate();
-    void divideDate();
+    bool checkIfDateIsWrittenProperly(string writtenDate);
+    int checkDetailsOfWrittenDate();
     int countCurrentMonth();
     int countLastMonth();
-    int cutDashes(string date);
-    void checkIfDateIsWrittenProperly();
-    bool checkIfIsLeapYear(string writtenDate);
+    bool checkIfIsLeapYear();
     void compareDates();
-    void wszystkie();//?
-    //string getWrittenDate();
-    string cutYear(string date);
-    string cutMonth(string writtenDate);
-    string cutDay(string writtenDate);
+    int cutDashes(string date);
+    int cutYear(string writtenDate);
+    int cutMonth(string writtenDate);
+    int cutDay(string writtenDate);
     void setWrittenDate(string newWrittenDate);
-    int convertStringToInt(string data);
-    string convertIntToString(int data);
+    string getWrittenDate();
 };
 
 #endif

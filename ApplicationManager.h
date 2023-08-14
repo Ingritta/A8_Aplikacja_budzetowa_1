@@ -12,7 +12,6 @@ using namespace std;
 class ApplicationManager {
     UserManager userManager;
     TransactionManager *transactionManager;
-    DateManager dateManager; //?
     const string NAME_OF_FILE_WITH_TRANSACTIONS;
 
 public:
@@ -24,7 +23,6 @@ public:
         transactionManager = NULL;
     };
     void userRegistration();
-    void readUsersFromFile();
     void changePasswordOfLoggedUser();
     char selectOptionFromMainMenu();
     char selectOptionFromUserMenu();

@@ -4,8 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <windows.h>
-#include <fstream>
-#include <sstream>
 
 #include "User.h"
 #include "XmlFile.h"
@@ -16,6 +14,7 @@ using namespace std;
 
 class UserManager {
     int loggedUserId;
+    User user;
     vector <User> users;
     FileWithUsers fileWithUsers;
     User giveDataOfNewUser();

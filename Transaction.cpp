@@ -12,6 +12,11 @@ void Transaction::setLoggedUserId(int LOGGED_USER_ID) {
     }
 }
 
+void Transaction::setDate(int newDate) {
+    if (date >= 0)
+        this -> date = newDate;
+}
+
 void Transaction::setReason(string newReason) {
     this -> reason = newReason;
 }
@@ -28,6 +33,10 @@ int Transaction::getTransactionId() {
 
 int Transaction::getUserId() {
     return this -> userId;
+}
+
+int Transaction::getDate() {
+    return this -> date;
 }
 
 string Transaction::getReason() {

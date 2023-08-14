@@ -21,6 +21,7 @@ public:
     static char loadChar();
     static int loadInteger();
     static float convertStringToFloat(string number);
+    static int cutDashes(string date);
     //static int giveIdOfSelectedContact();
 };
 

@@ -25,26 +25,6 @@ char TransactionManager::selectOptionFromUserMenu() {
     return choice;
 }
 
-string TransactionManager::checkAndConvertWrittenQuota(string ) {
-    int k = 0;
-    for (unsigned int i = 0; i < writtenQuota.length(); i++) {
-        if (writtenQuota[i] == ',') {
-            writtenQuota.replace(findSignPosition(writtenQuota), 1, ".");
-            k++;
-        } else if(!isdigit(writtenQuota[i]) && writtenQuota[i] != '.') {
-            cout << "Wpisano nieprawidlowa wartosc" << endl;
-            break;
-        } else if (writtenQuota[i] == '.') {
-            k++;
-        } else if (k > 1) {
-            cout << "Wpisano nieprawidlowa wartosc" << endl;
-            break;
-        }
-        //transaction.getQuota(SupportiveMethods::convertStringToFloat(writtenQuota));
-    }
-    return writtenQuota;
-}
-
 void TransactionManager::addDetailsOfTransaction() {
     Transaction transaction;
     system("cls");
@@ -56,36 +36,34 @@ void TransactionManager::addDetailsOfTransaction() {
 
 Transaction TransactionManager::giveDataOfNewTransaction() {
     Transaction transaction;
+    string writtenQuota = "";
 
-    //transaction.setTransactionId((transactionFile.getLastTransactionId() + 1));
-    //transaction.setLoggedUserId(LOGGED_USER_ID);
+    transaction.setTransactionId((transactionFile.getLastTransactionId() + 1));
+    transaction.setLoggedUserId(LOGGED_USER_ID);
+
+    transaction.setDate(askAboutDate());
 
     cout << "Podaj zrodlo wplywu: ";
     transaction.setReason(SupportiveMethods::getLine());
 
     cout << "Podaj kwote: ";
-    transaction.setQuota(SupportiveMethods::convertStringToFloat(checkAndConvertWrittenQuota(SupportiveMethods::getLine())));//zmienic string na float
-
+    writtenQuota = (SupportiveMethods::getLine());
+    size_t position = writtenQuota.find(',');
+    for (unsigned int i = 0; i < writtenQuota.length(); i++) {
+        if (writtenQuota[i] == ',')
+            writtenQuota.replace(position, 1, ".");
+    }
+    transaction.setQuota(SupportiveMethods::convertStringToFloat(writtenQuota));
     return transaction;
 }
 
-int TransactionManager::findSignPosition(string) {
-    size_t position = writtenQuota.find(',');
-    if (position != string::npos)
-        return position;
-}
-
-//cout << setprecision(2) << fixed << quota << endl;
-
-
-/*
-void ContactManager::printAllContacts() {
+void TransactionManager::printAllTransactions() {
     system("cls");
-    if (!contacts.empty()) {
-        cout << "             >>> ADRESACI <<<" << endl;
+    if (!transactions.empty()) {
+        cout << "             >>> TRANSACJE<<<" << endl;
         cout << "-----------------------------------------------" << endl;
-        for (vector <Contact> :: iterator itr = contacts.begin(); itr != contacts.end(); itr++) {
-            printDataOfContact(*itr);
+        for (vector <Transaction> :: iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
+            printDetailsOfTransaction(*itr);
         }
         cout << endl;
     } else {
@@ -94,29 +72,37 @@ void ContactManager::printAllContacts() {
     system("pause");
 }
 
-void ContactManager::printDataOfContact(Contact contact) {
-    cout << endl << "Id:         " << contact.getId() << endl;
-    cout << "Imie:               " << contact.getName() << endl;
-    cout << "Nazwisko:           " << contact.getSurname() << endl;
-    cout << "Numer telefonu:     " << contact.getPhoneNumber() << endl;
-    cout << "Email:              " << contact.getEmail() << endl;
-    cout << "Adres:              " << contact.getAddress() << endl;
+void TransactionManager::printDetailsOfTransaction(Transaction transaction) {
+    cout << endl << "Id transakcji:         " << transaction.getTransactionId() << endl;
+    cout << "Id uzytkownika:                " << transaction.getUserId() << endl;
+    cout << "Zrodlo/cel:                    " << transaction.getReason() << endl;
+    cout << "Kwota:                         " << setprecision(2) << fixed << transaction.getQuota() << endl;
 }
 
-bool ContactManager::checkIfContactsAreWritten() {
-    return contacts.empty();
+int TransactionManager::askAboutDate() {
+    int dateOfTransaction = 0;
+    string date = "";
+    cout << "Jezeli chcesz wpisac date inna niz dzisiejsza wpisz t, jesli nie wpisz n" << endl;
+    if(SupportiveMethods::loadChar() == 't') {
+        do {
+            cout << "Podaj date w ktorej dokonano transakcji: " << endl;
+            dateManager.setWrittenDate(SupportiveMethods::getLine());
+            date = dateManager.getWrittenDate();
+        } while (!dateManager.checkIfDateIsWrittenProperly(date) || !dateManager.checkDetailsOfWrittenDate());
+        dateOfTransaction = SupportiveMethods::cutDashes(date);
+    } else {
+        dateOfTransaction = SupportiveMethods::cutDashes(dateManager.getDateFromOs());
+    }
+    return dateOfTransaction;
+}
+/*
+int TransactionManager::getDate() {
+    return date;
 }
 
-void ContactManager::addContact() {
-    Contact contact;
-    system("cls");
-    cout << " >>> DODAWANIE NOWEGO ADRESATA <<<" << endl << endl;
-    contact = giveDataOfNewContact();
-    contacts.push_back(contact);
-    fileWithContacts.addContactToFile(contact);
+void TransactionManager::setDate() {
+    date = DateManager::askAboutDate();
 }
-
-
 
 void ContactManager::setNumberOfContacts(int newAmountOfContacts) {
     if (newAmountOfContacts >= 0) {

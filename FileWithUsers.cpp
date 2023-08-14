@@ -1,70 +1,112 @@
 #include "FileWithUsers.h"
-#include "Markup.h"
+#include "Markup.h"//?
+#include "XmlFile.h"//?
 
-void FileWithUsers::saveAllUsersInFile(vector <User> &users)
-{
-    /*
-    fstream textFile;
-    string lineWithUserData = "";
+void FileWithUsers::addUserToFile (User user) {
+
+    CMarkup xml;
+
+    bool fileExists = xml.Load(NAME_OF_FILE);
+
+    if (!fileExists) {
+        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+        xml.AddElem(NAME_OF_FILE);
+    }
+    xml.FindElem();
+    xml.IntoElem();
+    xml.AddElem("User");
+    xml.IntoElem();
+    xml.AddElem("UserId", user.getId());
+    xml.AddElem("Login", user.getLogin());
+    xml.AddElem("Password", user.getPassword());
+    xml.Save(NAME_OF_FILE);
+}
+
+void FileWithUsers::saveAllUsersInFile(vector <User> &users) {
+
+    CMarkup xml;
+
     vector <User>::iterator itrEnd = --users.end();
 
-    textFile.open(NAME_OF_FILE.c_str(), ios::out);
+    bool fileExists = xml.Load(NAME_OF_FILE);
 
-    if (textFile.good() == true) {
+    if (fileExists) {
         for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
-
-            lineWithUserData = convertUserDataToLinesWithDataSeparatedByPipes(*itr);
-
-            if (itr == itrEnd) {
-                textFile << lineWithUserData;
-            } else {
-                textFile << lineWithUserData << endl;
-            }
-            lineWithUserData = "";
+            xml.FindElem();
+            xml.IntoElem();
+            xml.AddElem("User");
+            xml.IntoElem();
+            xml.AddElem("UserId", itr->getId());
+            xml.AddElem("Login", itr->getLogin());
+            xml.AddElem("Password", itr->getPassword());
+            xml.Save(NAME_OF_FILE);
         }
     } else {
 
         cout << "Nie mozna otworzyc pliku " << NAME_OF_FILE << endl;
     }
-    textFile.close();
-    */
+    xml.Save(NAME_OF_FILE);
 }
 
 vector <User> FileWithUsers::readUsersFromFile() {
-    /*
-    User user;
-    vector <User> users;
-    string dataOfSingleUserSeparatedByPipes = "";
-    fstream textFile;
 
-    textFile.open(NAME_OF_FILE.c_str(), ios::in);
-
-    if (textFile.good() == true) {
-        while (getline(textFile, dataOfSingleUserSeparatedByPipes)) {
-            user = getDataOfUser(dataOfSingleUserSeparatedByPipes);
-            users.push_back(user);
-        }
-        textFile.close();
-    }
-    return users;
-    */
-}
-
-
-void FileWithUsers::addUserToFile (User user) {
-    /*
     CMarkup xml;
 
-    bool fileExists = xml.Load(NAME_OF_FILE.c_str());
+    vector <User> users;
+    User user;
 
-    if (!fileExists) {
-        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("Users");
+    bool fileExists = xml.Load(NAME_OF_FILE);
+
+    if (fileExists) {
+        xml.IntoElem();
+
+        while (xml.FindElem("Users")) {
+
+            xml.IntoElem();
+            if (xml.FindElem("User")) {
+                xml.IntoElem();
+                xml.FindElem("UserId");
+                user.setId(atoi(xml.GetData().c_str()));
+                xml.FindElem("Login");
+                user.setLogin (xml.GetData());
+                xml.FindElem("Password");
+                user.setPassword (xml.GetData());
+                users.push_back(user);
+                xml.OutOfElem();
+            } else {
+
+                cout << "Nie mozna otworzyc pliku " << NAME_OF_FILE << endl;
+
+            }
+        }
     }
-    xml.AddElem("User","2");
-    */
+    return users;
 }
 /*
+User FileWithUsers::getDataOfUser() {
+    User user;
+    //user = readUsersFromFile();
+    int numberOfsingleDataOfUser = 1;
+
+    while (1) {
+        switch(numberOfsingleDataOfUser) {
+        case 1:
+            user.setId();
+            break;
+        case 2:
+            user.setLogin();
+            break;
+        case 3:
+            user.setPassword();
+            break;
+        }
+        numberOfsingleDataOfUser++;
+    }
+}
+return user;
+}
+
+
 void FileWithUsers::addUserToFile (User user) {
     string lineWithUserData = "";
     fstream textFile;
@@ -163,4 +205,6 @@ void FileWithUsers::saveAllUsersInFile(vector <User> &users)
     }
     textFile.close();
 }
+
 */
+

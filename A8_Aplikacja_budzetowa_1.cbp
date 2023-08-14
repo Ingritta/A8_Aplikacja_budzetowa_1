@@ -40,6 +40,7 @@
 		<Unit filename="ExpensesFile.h" />
 		<Unit filename="FileWithUsers.cpp" />
 		<Unit filename="FileWithUsers.h" />
+		<Unit filename="Markup.cpp" />
 		<Unit filename="Markup.h" />
 		<Unit filename="SupportiveMethods.cpp" />
 		<Unit filename="SupportiveMethods.h" />
@@ -53,6 +54,7 @@
 		<Unit filename="User.h" />
 		<Unit filename="UserManager.cpp" />
 		<Unit filename="UserManager.h" />
+		<Unit filename="Users.xml" />
 		<Unit filename="XmlFile.cpp" />
 		<Unit filename="XmlFile.h" />
 		<Unit filename="main.cpp" />

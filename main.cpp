@@ -1,6 +1,6 @@
 #include <iostream>
-
 #include "ApplicationManager.h"
+#include "Markup.h"//?
 
 using namespace std;
 
@@ -17,6 +17,7 @@ int main() {
             switch (choice) {
             case '1':
                 ApplicationManager.userRegistration();
+                //ApplicationManager.showAllUsers();
                 break;
             case '2':
                 ApplicationManager.userLogin();
@@ -38,7 +39,7 @@ int main() {
                 ApplicationManager.addDetailsOfTransaction();
                 break;
             case '2':
-               // ApplicationManager.searchContactByName();
+                // ApplicationManager.searchContactByName();
                 break;
             case '3':
                 //ApplicationManager.searchContactBySurname();
@@ -50,12 +51,9 @@ int main() {
                 //ApplicationManager.removeContact();
                 break;
             case '6':
-                //ApplicationManager.changeDetailsOfContact();
-                break;
-            case '7':
                 ApplicationManager.changePasswordOfLoggedUser();
                 break;
-            case '8':
+            case '7':
                 ApplicationManager.userLogout();
                 break;
             }
