@@ -31,8 +31,8 @@ class TransactionManager {
 
 public:
     TransactionManager(string nameOfFileWithTransactions, int loggedUserId) : transactionFile(nameOfFileWithTransactions), LOGGED_USER_ID(loggedUserId) {
-    loggedUserId = 0;
-    transactions = transactionFile.readTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
+        loggedUserId = 0;
+        transactions = transactionFile.readTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
     };
     DateManager dateManager;
     void addDetailsOfTransaction();
@@ -46,8 +46,11 @@ public:
     void printDetailsOfTransaction(Transaction transaction);
     void setAmountOfTransactions(int newAmountOfTransactions);
     int getTransactionId();
-    int getDate();//?
     int askAboutDate();
+    bool checkWrittenQuota(string writtenQuota);
+    float correctQuota();
+    void countCurrentMonthBalance(vector <Transaction> transactions);
+    void printCurrentMonthBalance();
 };
 
 #endif

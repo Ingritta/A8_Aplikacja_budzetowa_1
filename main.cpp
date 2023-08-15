@@ -17,7 +17,7 @@ int main() {
             switch (choice) {
             case '1':
                 ApplicationManager.userRegistration();
-                //ApplicationManager.showAllUsers();
+                ApplicationManager.showAllUsers();
                 break;
             case '2':
                 ApplicationManager.userLogin();
@@ -42,7 +42,7 @@ int main() {
                 // ApplicationManager.searchContactByName();
                 break;
             case '3':
-                //ApplicationManager.searchContactBySurname();
+                ApplicationManager.printCurrentMonthBalance();
                 break;
             case '4':
                 //ApplicationManager.printAllContacts();

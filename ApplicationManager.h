@@ -32,6 +32,7 @@ public:
     void userLogin();
     void showAllUsers();
     void addDetailsOfTransaction();
+    void printCurrentMonthBalance();
 };
 
 #endif

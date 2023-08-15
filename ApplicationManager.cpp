@@ -40,3 +40,7 @@ bool ApplicationManager::checkIfUserIsLogged () {
 void ApplicationManager::addDetailsOfTransaction() {
     transactionManager->addDetailsOfTransaction();
 }
+
+void ApplicationManager::printCurrentMonthBalance() {
+    transactionManager->printCurrentMonthBalance();
+}

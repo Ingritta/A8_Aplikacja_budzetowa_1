@@ -6,7 +6,7 @@ void Transaction::setTransactionId(int newTransactionId) {
     }
 }
 
-void Transaction::setLoggedUserId(int LOGGED_USER_ID) {
+void Transaction::setUserId(int LOGGED_USER_ID) {
     if (userId >= 0) {
         this -> userId = LOGGED_USER_ID;
     }

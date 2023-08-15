@@ -1,15 +1,7 @@
-#include <iostream>
-#include <ctime>
-#include <sstream>
-#include <cstdlib>
-#include <string>
-#include <algorithm>
-#include <conio.h>
-
 #include "DateManager.h"
-#include "Date.h"
 
 const string DateManager::getDateFromOs() {
+    string date = "";
     time_t     now = time(0);
     struct tm  tstruct;
     char       buf[11];
@@ -17,7 +9,6 @@ const string DateManager::getDateFromOs() {
 
     strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
     date = buf;
-    //cout << date << endl;
 
     return buf;
 }
@@ -41,8 +32,8 @@ bool DateManager::checkIfDateIsWrittenProperly(string writtenDate) {
 }
 
 int DateManager::checkDetailsOfWrittenDate() {
-    if (cutYear(getDateFromOs()) < cutYear(writtenDate)) {
-        cout << "Wpisany rok jest nieprawidlowy. Wpisz poprawny rok!" << endl;
+    if (SupportiveMethods::cutDashes(getDateFromOs()) < SupportiveMethods::cutDashes(writtenDate)) {
+        cout << "Wpisany rok jest nieprawidlowy - data trasakcji jest pozniejsza od dzaty dzisiejszej. Wpisz poprawny rok!" << endl;
         return false;
     } else if (cutMonth(writtenDate) > 12) {
         cout << "Wpisany miesiac jest nieprawidlowy. Wpisz poprawny miesiac!" << endl;
@@ -73,33 +64,29 @@ string DateManager::getWrittenDate() {
 
 bool DateManager::checkIfIsLeapYear() {
     if (cutYear(writtenDate)%4 == 0 && (cutYear(writtenDate)%100 != 0 || cutYear(writtenDate)%400 == 0)) {
-        //cout << "przestepny" << endl;
         return true;
     } else {
-        //cout << "nieprzestepny" << endl;
         return false;
     }
 }
 
 void DateManager::compareDates() {
-    int beginDate = SupportiveMethods::cutDashes(date);
-    int endDate = SupportiveMethods::cutDashes(writtenDate);
-    while (beginDate > endDate) {
+    while (SupportiveMethods::cutDashes(getDateFromOs()) > SupportiveMethods::cutDashes(writtenDate)) {
         //cout << beginDate << "->" << endDate << endl;
-        endDate++;
+        SupportiveMethods::cutDashes(writtenDate) + 1;
     }
 }
 
-int DateManager::countCurrentMonth() {
-    int searchedDate = SupportiveMethods::cutDashes(date) - cutDay(date) + 1;
+int DateManager::countFirstDayOfCurrentMonth() {
+    int searchedDate = SupportiveMethods::cutDashes(getDateFromOs()) - cutDay(getDateFromOs()) + 1;
     //cout << "searchedDate current month" << searchedDate << endl;
     return searchedDate;
 }
 
 int DateManager::countLastMonth() {
     string zero = "0", searchedDate = "";
-    string year = SupportiveMethods::convertIntToString(cutYear(date));
-    string month = SupportiveMethods::convertIntToString(cutMonth(date));
+    string year = SupportiveMethods::convertIntToString(cutYear(getDateFromOs()));
+    string month = SupportiveMethods::convertIntToString(cutMonth(getDateFromOs()));
 
     int lastMonth = SupportiveMethods::convertStringToInt(month) - 1 ;
 
@@ -148,100 +135,22 @@ int DateManager::cutDay(string writtenDate) {
     dayInt = stoi(day);
     return dayInt;
 }
-/*
-void DateManager::setWrittenDate(string newWrittenDate) {
-    writtenDate = newWrittenDate;
-}
 
-int DateManager::convertStringToInt(string data) {
-    int dataInt = (atoi(data.c_str()));
+string DateManager::addDashes(int date) {
+    string dateWithDashes = SupportiveMethods::convertIntToString(date);
+    string year, month, day;
 
-    return dataInt;
-}
-
-string DateManager::convertIntToString(int data) {
-    ostringstream ss;
-    ss << data;
-    string str = ss.str();
-
-    return str;
-}
-*/
-/*
-void DateManager::wszystkie() {
-    getDateFromOs();
-    askAboutDate();
-    compareDates();
-    countCurrentMonth();
-    countLastMonth();
-    system ("pause");
-}
-
-
-void DateManager::divideDate() {
-    string singleData = "";
-    int numberOfSingleData = 1;
-
-    for (int signPosition = 0; signPosition <= 10; signPosition++) {
-        if (signPosition != 4 && signPosition != 7 && signPosition != 10) {
-            singleData += signPosition;// date[signPosition]
-        } else {
-            switch(numberOfSingleData) {
-            case 1:
-                year = (atoi(singleData.c_str()));
-                break;
-            case 2:
-                month = (atoi(singleData.c_str()));
-                break;
-            case 3:
-                day = (atoi(singleData.c_str()));
-                break;
-            }
-            singleData = "";
-            numberOfSingleData++;
-        }
+    for (int i = 0; i < 4; i++) {
+        year += dateWithDashes[i];
     }
-}
-
-
-int DateManager::cutYear() {
-    int year = 0, date = 0;
-    for (int i = 0; i < 5;  i++) {
-        year += date[i];
+    for (int i = 4; i < 6; i++) {
+        month += dateWithDashes[i];
     }
-    return year;
-}
-
-int DateManager::cutMonth() {
-    int month = 0, date = 0;
-    for (int i = 5; i < 7;  i++) {
-        month += date[i];
+    for (int i = 6; i < 8; i++) {
+        day += dateWithDashes[i];
     }
-    return month;
-}
 
-int DateManager::cutDay() {
-    int day = 0, date = 0;
-    for (int i = 7; i = 8;  i++) {
-        day += date[i];
-    }
-    return day;
-}
-*/
-/*
-int DateManager::askAboutDate() {
-    //string date = "2022-11-02";
-    cout << "Czy transakcja zostala wykonana dzisiaj? Wpiszt t (tak) lub n (nie).: " << endl;
+    dateWithDashes = year + '-' + month + '-' + day;
 
-    if(SupportiveMethods::loadChar() == 't') {
-        dateFromOS = cutDashes(getDateFromOs());
-    } else {
-        do {
-            cout << "Podaj date w ktorej dokonano transakcji: " << endl;
-        } while (!checkIfDateIsWrittenProperly(SupportiveMethods::getLine()));
-        if (checkIfDateIsWrittenProperly(SupportiveMethods::getLine()));
-        dateInt = cutDashes(SupportiveMethods::getLine());
-    }
-    return dateInt;
+    return dateWithDashes;
 }
-*/

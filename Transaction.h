@@ -27,7 +27,7 @@ public:
     string getReason();
     float getQuota();
     void setTransactionId(int newId);
-    void setLoggedUserId(int newLoggedUserId);
+    void setUserId(int newLoggedUserId);
     void setDate(int newDate);
     void setReason(string newName);
     void setQuota(float newQuota);

@@ -88,3 +88,4 @@ int SupportiveMethods::cutDashes(string date) {
 
     return dateInt;
 }
+

@@ -2,13 +2,14 @@
 #define DATEMANAGER_H
 
 #include <iostream>
+#include <ctime>
 #include <sstream>
+#include <cstdlib>
 #include <string>
-#include <cctype>
 #include <algorithm>
+#include <conio.h>
 
 #include "SupportiveMethods.h"
-#include "Date.h"
 #include "Transaction.h"
 
 using namespace std;
@@ -16,17 +17,16 @@ using namespace std;
 class DateManager {
 
 private:
-    string data;//?
+
     int dateFromOS;
     string writtenDate;
-    string date;
 
 public:
 
     const string getDateFromOs();
     bool checkIfDateIsWrittenProperly(string writtenDate);
     int checkDetailsOfWrittenDate();
-    int countCurrentMonth();
+    int countFirstDayOfCurrentMonth();
     int countLastMonth();
     bool checkIfIsLeapYear();
     void compareDates();
@@ -36,12 +36,8 @@ public:
     int cutDay(string writtenDate);
     void setWrittenDate(string newWrittenDate);
     string getWrittenDate();
+    string addDashes(int date);
 };
 
 #endif
 
-/*
- //int year;
-    //int month;
-    //int day;
-*/

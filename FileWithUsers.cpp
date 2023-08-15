@@ -1,6 +1,42 @@
 #include "FileWithUsers.h"
-#include "Markup.h"//?
-#include "XmlFile.h"//?
+
+vector <User> FileWithUsers::readUsersFromFile() {
+
+    CMarkup xml;
+
+    User user;
+    vector <User> users;
+
+    bool fileExists = xml.Load(NAME_OF_FILE);
+
+    if (!fileExists) {
+        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+        xml.AddElem(NAME_OF_FILE);
+    }
+    xml.IntoElem();
+    xml.FindElem("Users");
+    xml.IntoElem();
+    xml.FindElem("User");
+    while (xml.FindElem("User")) {
+        xml.IntoElem();
+        if (xml.FindElem("UserId")) {
+            user.setId(atoi(xml.GetData().c_str()));
+            xml.FindElem("Login");
+            user.setLogin(xml.GetData());
+            xml.FindElem("Password");
+            user.setPassword(xml.GetData());
+            users.push_back(user);
+        }
+        xml.OutOfElem();
+    }
+    for (size_t i = 0; i < users.size(); i++) {
+        cout << users[i].getId() << endl;
+        cout << users[i].getLogin() << endl;
+        cout << users[i].getPassword() << endl;
+        system("pause");
+    }
+    return users;
+}
 
 void FileWithUsers::addUserToFile (User user) {
 
@@ -22,6 +58,7 @@ void FileWithUsers::addUserToFile (User user) {
     xml.Save(NAME_OF_FILE);
 }
 
+/*
 void FileWithUsers::saveAllUsersInFile(vector <User> &users) {
 
     CMarkup xml;
@@ -47,41 +84,8 @@ void FileWithUsers::saveAllUsersInFile(vector <User> &users) {
     }
     xml.Save(NAME_OF_FILE);
 }
+*/
 
-vector <User> FileWithUsers::readUsersFromFile() {
-
-    CMarkup xml;
-
-    vector <User> users;
-    User user;
-
-    bool fileExists = xml.Load(NAME_OF_FILE);
-
-    if (fileExists) {
-        xml.IntoElem();
-
-        while (xml.FindElem("Users")) {
-
-            xml.IntoElem();
-            if (xml.FindElem("User")) {
-                xml.IntoElem();
-                xml.FindElem("UserId");
-                user.setId(atoi(xml.GetData().c_str()));
-                xml.FindElem("Login");
-                user.setLogin (xml.GetData());
-                xml.FindElem("Password");
-                user.setPassword (xml.GetData());
-                users.push_back(user);
-                xml.OutOfElem();
-            } else {
-
-                cout << "Nie mozna otworzyc pliku " << NAME_OF_FILE << endl;
-
-            }
-        }
-    }
-    return users;
-}
 /*
 User FileWithUsers::getDataOfUser() {
     User user;
@@ -125,14 +129,7 @@ void FileWithUsers::addUserToFile (User user) {
     textFile.close();
 }
 
-string FileWithUsers::convertUserDataToLinesWithDataSeparatedByPipes(User user) {
-    string lineWithUserData = "";
-    lineWithUserData += SupportiveMethods::convertIntToString(user.getId())+ '|';
-    lineWithUserData += user.getLogin() + '|';
-    lineWithUserData += user.getPassword() + '|';
 
-    return lineWithUserData;
-}
 
 vector <User> FileWithUsers::readUsersFromFile() {
     User user;

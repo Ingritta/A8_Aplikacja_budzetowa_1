@@ -18,11 +18,7 @@ char UserManager::selectOptionFromMainMenu() {
 
 void UserManager::userRegistration() {
     User user = giveDataOfNewUser();
-    /*
-    cout << "id" << user.getId() << endl;//?
-    cout << "id" << user.getLogin() << endl;
-    cout << "id" << user.getPassword() <<endl;
-*/
+
     users.push_back(user);
     fileWithUsers.addUserToFile(user);
 
@@ -36,7 +32,7 @@ User UserManager::giveDataOfNewUser() {
     user.setId(getNewUserId());
     string login;
 
-   do {
+    do {
         cout << "Podaj login: ";
         cin >> login;
         user.setLogin(login);
@@ -91,7 +87,7 @@ void UserManager::userLogin() {
                 password = SupportiveMethods::getLine();
 
                 if (itr -> getPassword() == password) {
-                        loggedUserId = itr -> getId();
+                    loggedUserId = itr -> getId();
                     cout << endl << "Zalogowales sie." << endl << endl;
                     system("pause");
 
@@ -120,13 +116,13 @@ void UserManager::changePasswordOfLoggedUser() {
             system("pause");
         }
     }
-    saveAllUsersInFile();
+    //saveAllUsersInFile();
 }
-
+/*
 void UserManager::saveAllUsersInFile() {
     fileWithUsers.saveAllUsersInFile(users);
 }
-
+*/
 int UserManager::getLoggedUserId() {
     return loggedUserId;
 }
@@ -143,6 +139,7 @@ void UserManager::userLogout() {
     loggedUserId = 0;
 }
 
-char UserManager::selectOptionFromUserMenu(){
+char UserManager::selectOptionFromUserMenu() {
     return 0;
 }
+

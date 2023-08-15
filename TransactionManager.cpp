@@ -39,22 +39,49 @@ Transaction TransactionManager::giveDataOfNewTransaction() {
     string writtenQuota = "";
 
     transaction.setTransactionId((transactionFile.getLastTransactionId() + 1));
-    transaction.setLoggedUserId(LOGGED_USER_ID);
+    transaction.setUserId(LOGGED_USER_ID);
 
     transaction.setDate(askAboutDate());
 
     cout << "Podaj zrodlo wplywu: ";
     transaction.setReason(SupportiveMethods::getLine());
 
-    cout << "Podaj kwote: ";
-    writtenQuota = (SupportiveMethods::getLine());
+    transaction.setQuota(correctQuota());
+
+    return transaction;
+}
+
+float TransactionManager::correctQuota() {
+    string writtenQuota = "";
+    float quota = 0;
+    do {
+        cout << "Podaj kwote: ";
+        writtenQuota = SupportiveMethods::getLine();
+    } while (!checkWrittenQuota(writtenQuota));
+
+    quota = SupportiveMethods::convertStringToFloat(writtenQuota);
+
+    return quota;
+}
+
+bool TransactionManager::checkWrittenQuota(string writtenQuota) {
+    int k = 0;
     size_t position = writtenQuota.find(',');
     for (unsigned int i = 0; i < writtenQuota.length(); i++) {
-        if (writtenQuota[i] == ',')
+        if (writtenQuota[i] == ',') {
             writtenQuota.replace(position, 1, ".");
+            k++;
+        } else if(!isdigit(writtenQuota[i]) && writtenQuota[i] != '.') {
+            cout << "Wpisano nieprawidlowa wartosc" << endl;
+            return false;
+        } else if (writtenQuota[i] == '.') {
+            k++;
+        } else if (k > 1) {
+            cout << "Wpisano nieprawidlowa wartosc" << endl;
+            return false;
+        }
     }
-    transaction.setQuota(SupportiveMethods::convertStringToFloat(writtenQuota));
-    return transaction;
+    return  true;
 }
 
 void TransactionManager::printAllTransactions() {
@@ -75,6 +102,7 @@ void TransactionManager::printAllTransactions() {
 void TransactionManager::printDetailsOfTransaction(Transaction transaction) {
     cout << endl << "Id transakcji:         " << transaction.getTransactionId() << endl;
     cout << "Id uzytkownika:                " << transaction.getUserId() << endl;
+    cout << "Data transakcji:               " << dateManager.addDashes(transaction.getDate()) << endl;
     cout << "Zrodlo/cel:                    " << transaction.getReason() << endl;
     cout << "Kwota:                         " << setprecision(2) << fixed << transaction.getQuota() << endl;
 }
@@ -82,27 +110,43 @@ void TransactionManager::printDetailsOfTransaction(Transaction transaction) {
 int TransactionManager::askAboutDate() {
     int dateOfTransaction = 0;
     string date = "";
-    cout << "Jezeli chcesz wpisac date inna niz dzisiejsza wpisz t, jesli nie wpisz n" << endl;
+    cout << "Jezeli chcesz wpisac date inna niz dzisiejsza wpisz 't', jesli nie wcisnij dowolny klawisz." << endl;
     if(SupportiveMethods::loadChar() == 't') {
         do {
-            cout << "Podaj date w ktorej dokonano transakcji: " << endl;
+            cout << "Podaj date w ktorej dokonano transakcji: ";
             dateManager.setWrittenDate(SupportiveMethods::getLine());
             date = dateManager.getWrittenDate();
         } while (!dateManager.checkIfDateIsWrittenProperly(date) || !dateManager.checkDetailsOfWrittenDate());
         dateOfTransaction = SupportiveMethods::cutDashes(date);
     } else {
         dateOfTransaction = SupportiveMethods::cutDashes(dateManager.getDateFromOs());
+        cout << "Data transakcji: " << dateManager.getDateFromOs() << endl;
     }
     return dateOfTransaction;
 }
-/*
-int TransactionManager::getDate() {
-    return date;
+
+void TransactionManager::countCurrentMonthBalance(vector <Transaction> transactions) { //wczesniej uporzadkowac vector
+    int dayOfCurrentMonth = dateManager.countFirstDayOfCurrentMonth();
+    int currentMonthBalance = 0;
+
+    while(dayOfCurrentMonth <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())){
+    for (vector <Transaction>::iterator  itr = transactions.begin(); itr != transactions.end(); itr++) {
+            if (itr -> getDate() == dayOfCurrentMonth) {
+                printDetailsOfTransaction(*itr);
+            }
+        }
+        dayOfCurrentMonth++;
+    }
+    cout << currentMonthBalance << endl;
+         system ("pause");
 }
 
-void TransactionManager::setDate() {
-    date = DateManager::askAboutDate();
+void TransactionManager::printCurrentMonthBalance() {
+    //printAllTransactions();
+    countCurrentMonthBalance(transactions);
 }
+
+/*
 
 void ContactManager::setNumberOfContacts(int newAmountOfContacts) {
     if (newAmountOfContacts >= 0) {
