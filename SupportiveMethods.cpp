@@ -1,7 +1,3 @@
-#include <sstream>
-#include <cctype>
-#include <string>
-
 #include "SupportiveMethods.h"
 
 string SupportiveMethods::convertIntToString(int number) {

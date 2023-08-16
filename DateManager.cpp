@@ -87,18 +87,17 @@ int DateManager::countLastMonth() {
     string zero = "0", searchedDate = "";
     string year = SupportiveMethods::convertIntToString(cutYear(getDateFromOs()));
     string month = SupportiveMethods::convertIntToString(cutMonth(getDateFromOs()));
+    string day = SupportiveMethods::convertIntToString(cutDay(getDateFromOs()));
 
     int lastMonth = SupportiveMethods::convertStringToInt(month) - 1 ;
 
-    month = SupportiveMethods::convertIntToString(lastMonth);
-
     if (month.length() > 1) {
-        searchedDate = year += month;
+        searchedDate = year += month += day;
     } else {
-        searchedDate = year += zero += month;
+        searchedDate = year += zero += month += day;
     }
     int searchedDateInt = SupportiveMethods::convertStringToInt(searchedDate);
-    //cout << "searchedDate last month" << searchedDate << endl;
+    cout << "searchedDate last month" << searchedDate << endl;
 
     return searchedDateInt;
 }

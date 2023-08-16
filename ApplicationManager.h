@@ -33,6 +33,8 @@ public:
     void showAllUsers();
     void addDetailsOfTransaction();
     void printCurrentMonthBalance();
+    void printLastMonthBalance();
+    void printBalanceForChoosenPeriod();
 };
 
 #endif

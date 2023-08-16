@@ -45,10 +45,10 @@ int main() {
                 ApplicationManager.printCurrentMonthBalance();
                 break;
             case '4':
-                //ApplicationManager.printAllContacts();
+                ApplicationManager.printLastMonthBalance();
                 break;
             case '5':
-                //ApplicationManager.removeContact();
+                ApplicationManager.printBalanceForChoosenPeriod();
                 break;
             case '6':
                 ApplicationManager.changePasswordOfLoggedUser();

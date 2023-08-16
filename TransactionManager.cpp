@@ -86,9 +86,9 @@ bool TransactionManager::checkWrittenQuota(string writtenQuota) {
 
 void TransactionManager::printAllTransactions() {
     system("cls");
-    if (!transactions.empty()) {
-        cout << "             >>> TRANSACJE<<<" << endl;
-        cout << "-----------------------------------------------" << endl;
+    if (!transactions.empty()) {// usunac
+        cout << "     >>> TRANSACJE<<<" << endl;
+        cout << "---------------------------" << endl;
         for (vector <Transaction> :: iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
             printDetailsOfTransaction(*itr);
         }
@@ -113,7 +113,7 @@ int TransactionManager::askAboutDate() {
     cout << "Jezeli chcesz wpisac date inna niz dzisiejsza wpisz 't', jesli nie wcisnij dowolny klawisz." << endl;
     if(SupportiveMethods::loadChar() == 't') {
         do {
-            cout << "Podaj date w ktorej dokonano transakcji: ";
+            cout << "Podaj date: ";
             dateManager.setWrittenDate(SupportiveMethods::getLine());
             date = dateManager.getWrittenDate();
         } while (!dateManager.checkIfDateIsWrittenProperly(date) || !dateManager.checkDetailsOfWrittenDate());
@@ -125,42 +125,92 @@ int TransactionManager::askAboutDate() {
     return dateOfTransaction;
 }
 
-void TransactionManager::countCurrentMonthBalance(vector <Transaction> transactions) { //wczesniej uporzadkowac vector
-    int dayOfCurrentMonth = dateManager.countFirstDayOfCurrentMonth();
-    int currentMonthBalance = 0;
+void TransactionManager::printCurrentMonthBalance() {
+    float balance = 0;
+    choosenDate = dateManager.countFirstDayOfCurrentMonth();
+    system("cls");
+    while(choosenDate <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
+        balance += countBalance(transactions);
+        choosenDate++;
+    }
+    printBalance(balance);
+}
 
-    while(dayOfCurrentMonth <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())){
+void TransactionManager::printBalanceForChoosenPeriod() {
+    float balance = 0;
+    choosenDate = askAboutDate();
+    system("cls");
+    while(choosenDate <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
+        balance += countBalance(transactions);
+        choosenDate++;
+    }
+    printBalance(balance);
+}
+
+void TransactionManager::printLastMonthBalance() {
+    float balance = 0;
+    choosenDate = dateManager.countLastMonth();
+    system("cls");
+    while(choosenDate <= dateManager.countFirstDayOfCurrentMonth()) {
+        balance += countBalance(transactions);
+        choosenDate++;
+    }
+    printBalance(balance);
+}
+
+float TransactionManager::countBalance(vector <Transaction> transactions) { //wczesniej pobrac i uporzadkowac vector
+    float currentMonthBalance = 0;
+    int amountOfTransaction = 0;
     for (vector <Transaction>::iterator  itr = transactions.begin(); itr != transactions.end(); itr++) {
-            if (itr -> getDate() == dayOfCurrentMonth) {
+        if (itr -> getDate() == choosenDate) {
+            printDetailsOfTransaction(*itr);
+            amountOfTransaction++;
+            currentMonthBalance += itr -> getQuota();
+            return currentMonthBalance;
+        }
+    }
+}
+
+void TransactionManager::printBalance(float balance) {
+    cout << "-----------------------------------------------" << endl;
+    cout << setprecision(2) << "Bilans wynosi: " << fixed << balance << endl;
+    cout << "-----------------------------------------------" << endl;
+    system ("pause");
+}
+/*
+void TransactionManager::countBalanceForLastMonth(vector <Transaction> transactions) { //wczesniej pobrac i uporzadkowac vector
+    float currentMonthBalance = 0;
+    int amountOfTransaction = 0;
+    while(choosenDate < dateManager.countFirstDayOfCurrentMonth()) {
+        for (vector <Transaction>::iterator  itr = transactions.begin(); itr != transactions.end(); itr++) {
+            if (itr -> getDate() == choosenDate) {
                 printDetailsOfTransaction(*itr);
+                currentMonthBalance += itr -> getQuota();
+                amountOfTransaction++;
             }
         }
-        dayOfCurrentMonth++;
+        choosenDate++;
     }
-    cout << currentMonthBalance << endl;
-         system ("pause");
+    cout << setprecision(2) << fixed << currentMonthBalance << endl;
+    system ("pause");
 }
 
-void TransactionManager::printCurrentMonthBalance() {
-    //printAllTransactions();
-    countCurrentMonthBalance(transactions);
-}
 
-/*
-
-void ContactManager::setNumberOfContacts(int newAmountOfContacts) {
-    if (newAmountOfContacts >= 0) {
-        this -> amountOfContacts = newAmountOfContacts;
+void TransactionManager::setAmountOfTransactions(int newAmountOfTransactions) {
+    if (newAmountOfTransactions >= 0) {
+        this -> amountOfTransactions = newAmountOfTransactions;
     }
 }
 
-void ContactManager::printNumberOfFoundContacts() {
-    if (amountOfContacts == 0)
+void TransactionManager::printAmountOfTransactions() {
+    if (amountOfTransactions == 0)
         cout << endl << "W ksiazce adresowej nie ma adresatow z tymi danymi." << endl;
     else
-        cout << endl << "Ilosc adresatow w ksiazce adresowej wynosi: " << amountOfContacts << endl << endl;
+        cout << endl << "Ilosc adresatow w ksiazce adresowej wynosi: " << amountOfTransactions << endl << endl;
 }
+*/
 
+/*
 void ContactManager::searchContactByName() {
     string nameOfSerchedContact = "";
     int amountOfContacts = 0;
@@ -288,4 +338,23 @@ void ContactManager::changeDetailsOfContact() {
     }
     system("pause");
 }
+
+
+void TransactionManager::countCurrentMonthBalance(vector <Transaction> transactions) { //wczesniej pobrac i uporzadkowac vector
+    int dayOfCurrentMonth = dateManager.countFirstDayOfCurrentMonth();
+    float currentMonthBalance = 0;
+
+    while(dayOfCurrentMonth <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
+        for (vector <Transaction>::iterator  itr = transactions.begin(); itr != transactions.end(); itr++) {
+            if (itr -> getDate() == dayOfCurrentMonth) {
+                printDetailsOfTransaction(*itr);
+                currentMonthBalance += itr -> getQuota();
+            }
+        }
+        dayOfCurrentMonth++;
+    }
+    cout << setprecision(2) << fixed << currentMonthBalance << endl;
+    system ("pause");
+}
+
 */

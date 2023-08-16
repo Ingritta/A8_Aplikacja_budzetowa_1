@@ -44,3 +44,11 @@ void ApplicationManager::addDetailsOfTransaction() {
 void ApplicationManager::printCurrentMonthBalance() {
     transactionManager->printCurrentMonthBalance();
 }
+
+void ApplicationManager::printLastMonthBalance() {
+    transactionManager->printLastMonthBalance();
+}
+
+void ApplicationManager::printBalanceForChoosenPeriod() {
+    transactionManager->printBalanceForChoosenPeriod();
+}

@@ -10,7 +10,7 @@ int TransactionFile::getLastTransactionId() {
     return lastTransactionId;
 }
 
-void TransactionFile::addTransactionToFile(Transaction transaction) {
+void TransactionFile::addTransactionToFile(Transaction transaction) {//nazwa pliku
 
     CMarkup xml;
 

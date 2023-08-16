@@ -26,6 +26,7 @@ class TransactionManager {
     vector <Transaction> transactions;
     TransactionFile transactionFile;
     int amountOfTransactions;
+    int choosenDate;
     const string NAME_OF_FILE;
     Transaction giveDataOfNewTransaction();
 
@@ -49,8 +50,12 @@ public:
     int askAboutDate();
     bool checkWrittenQuota(string writtenQuota);
     float correctQuota();
-    void countCurrentMonthBalance(vector <Transaction> transactions);
+    float countBalance(vector <Transaction> transactions);
+    void printLastMonthBalance();
     void printCurrentMonthBalance();
+    void printBalanceForChoosenPeriod();
+    void countFirstDayOfCurrentMonth();
+    void printBalance(float balance);
 };
 
 #endif

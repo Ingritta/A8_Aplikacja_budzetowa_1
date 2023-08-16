@@ -1,5 +1,5 @@
-#ifndef TRANSACTIONFILE_H
-#define TRANSACTIONFILE_H
+#ifndef INCOMEFILE_H
+#define INCOMEFILE_H
 
 #include <iostream>
 #include <vector>
@@ -23,7 +23,7 @@ public:
     TransactionFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {}
     string getFileName();
     bool checkIfFileIsEmpty();
-    void addTransactionToFile(Transaction transaction);
+    void addTransactionToFile(Transaction transactions);
     int getLastTransactionId();
     vector <Transaction> readTransactionsOfLoggedUserFromFile(int loggedUserId);
 };
