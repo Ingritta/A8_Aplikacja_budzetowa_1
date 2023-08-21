@@ -14,11 +14,14 @@ using namespace std;
 
 class FileWithUsers : public XmlFile {
 
+    CMarkup xml;
+
 public:
     FileWithUsers(string nameOfFile) : XmlFile(nameOfFile) {};
     void addUserToFile(User user);
     vector <User> readUsersFromFile();
     void saveAllUsersInFile(vector <User> &users);
+    void changeData(string data);
 };
 
 #endif

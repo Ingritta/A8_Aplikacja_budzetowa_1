@@ -14,7 +14,9 @@
 #include <conio.h>
 
 #include "TransactionFile.h"
+#include "ExpenseFile.h"
 #include "Transaction.h"
+#include "Expense.h"
 #include "SupportiveMethods.h"
 #include "DateManager.h"
 
@@ -24,79 +26,62 @@ class TransactionManager {
 
     const int LOGGED_USER_ID;
     vector <Transaction> transactions;
+    vector <Expense> expenses;
     TransactionFile transactionFile;
-    int amountOfTransactions;
-    int choosenDate;
+    ExpenseFile expenseFile;
+    int amountOfIncomesTransactions;//?
+    int amountOfExpensesTransactions;//?
+    int choosenBeginDate;
+    int endDate;
     const string NAME_OF_FILE;
-    Transaction giveDataOfNewTransaction();
+    Transaction giveDataOfNewIncomeTransaction();
+    Expense giveDataOfNewExpenseTransaction();
 
 public:
-    TransactionManager(string nameOfFileWithTransactions, int loggedUserId) : transactionFile(nameOfFileWithTransactions), LOGGED_USER_ID(loggedUserId) {
+    TransactionManager(string nameOfFileWithTransactions, string nameOfFileWithExpenses, int loggedUserId) : transactionFile(nameOfFileWithTransactions), expenseFile(nameOfFileWithExpenses), LOGGED_USER_ID(loggedUserId) {
         loggedUserId = 0;
-        transactions = transactionFile.readTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
+        transactions = transactionFile.readIncomeTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
+        expenses = expenseFile.readExpenseTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
+        amountOfIncomesTransactions = 0;
+        amountOfExpensesTransactions = 0;
     };
     DateManager dateManager;
-    void addDetailsOfTransaction();
+    void setChoosenBeginDate(int newChoosenBeginDate);
+    void setEndDate(int newEndDate);
+    int getTransactionId();
+    int getNewExpenseId();
+     int getNewTransactionId();
+     int getChoosenBeginDate();
+     int getEndDate();
+    void setAmountOfIncomesTransactions(int newAmountOfTransactions);
+    void setAmountOfExpensesTransactions(int newAmountOfTransactions);
+    void addDetailsOfIncomeTransaction();
+    void addDetailsOfExpenseTransaction();
     void readTransactionsOfLoggedUserFromFile();
     bool checkIfDataIsWritten();
     char selectOptionFromUserMenu();
-    void printAllTransactions();
-    void printAmountOfTransactions();
+    void printCurrentMonthBalance();
     void removeTransaction();
     void changeDetailsOfTransaction();
-    void printDetailsOfTransaction(Transaction transaction);
-    void setAmountOfTransactions(int newAmountOfTransactions);
-    int getTransactionId();
+    void printDetailsOfIncomeTransaction(Transaction transaction);
+    void printDetailsOfExpenseTransaction(Expense expense);
     int askAboutDate();
     bool checkWrittenQuota(string writtenQuota);
     float correctQuota();
-    float countBalance(vector <Transaction> transactions);
+    float countIncomesBalance(vector <Transaction> transactions);
+    float countExpensesBalance(vector <Expense> expenses);
     void printLastMonthBalance();
-    void printCurrentMonthBalance();
     void printBalanceForChoosenPeriod();
     void countFirstDayOfCurrentMonth();
+    void printIncomeBalance(float incomeBalance);
+    void printExpenseBalance(float expenseBalance);
     void printBalance(float balance);
+    void showAllTransactions();//??
+    void countCurrentMonthBalance(int choosenBeginDate, int endDate);
+     void printAllIncomeTransactions();
+     void printAllExpenseTransactions();
 };
 
-#endif
 
-//TextFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {}
-//string getFileName();
-//bool checkIfFileIsEmpty();
-//dataOfIncomeSeparatedByPipes : string
-
-/*
-using namespace std;
-
-class ContactManager {
-    const int LOGGED_USER_ID;
-    vector <Contact> contacts;
-    FileWithContacts fileWithContacts;
-    int amountOfContacts;
-    string dataOfContactSeparatedByPipes;
-
-    Contact giveDataOfNewContact();
-    void printDataOfContact(Contact adresat);
-    void setNumberOfContacts(int newNumberOfContacts);
-    char selectOptionFromEditMenu();
-
-public:
-    ContactManager(string nameOfFileWithContacts, int loggedUserId) : LOGGED_USER_ID(loggedUserId), fileWithContacts(nameOfFileWithContacts)  {
-        loggedUserId = 0;
-        contacts = fileWithContacts.readContactsOfLoggedUserFromFile(LOGGED_USER_ID);
-    };
-    void addContact();
-    void readContactsOfLoggedUserFromFile();
-    bool checkIfContactsAreWritten();
-    char selectOptionFromUserMenu();
-    int getContactId();
-    void printAllContacts();
-    void searchContactByName();
-    void searchContactBySurname();
-    void printNumberOfFoundContacts();
-    void removeContact();
-    void changeDetailsOfContact();
-};
 
 #endif
-*/

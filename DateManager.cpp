@@ -1,5 +1,13 @@
 #include "DateManager.h"
 
+void DateManager::setWrittenDate(string newWrittenDate) {
+    writtenDate = newWrittenDate;
+}
+
+string DateManager::getWrittenDate() {
+    return writtenDate;
+}
+
 const string DateManager::getDateFromOs() {
     string date = "";
     time_t     now = time(0);
@@ -54,14 +62,6 @@ int DateManager::checkDetailsOfWrittenDate() {
     return true;
 }
 
-void DateManager::setWrittenDate(string newWrittenDate) {
-    writtenDate = newWrittenDate;
-}
-
-string DateManager::getWrittenDate() {
-    return writtenDate;
-}
-
 bool DateManager::checkIfIsLeapYear() {
     if (cutYear(writtenDate)%4 == 0 && (cutYear(writtenDate)%100 != 0 || cutYear(writtenDate)%400 == 0)) {
         return true;
@@ -70,68 +70,61 @@ bool DateManager::checkIfIsLeapYear() {
     }
 }
 
-void DateManager::compareDates() {
-    while (SupportiveMethods::cutDashes(getDateFromOs()) > SupportiveMethods::cutDashes(writtenDate)) {
-        //cout << beginDate << "->" << endDate << endl;
-        SupportiveMethods::cutDashes(writtenDate) + 1;
-    }
-}
-
 int DateManager::countFirstDayOfCurrentMonth() {
     int searchedDate = SupportiveMethods::cutDashes(getDateFromOs()) - cutDay(getDateFromOs()) + 1;
-    //cout << "searchedDate current month" << searchedDate << endl;
     return searchedDate;
 }
 
-int DateManager::countLastMonth() {
-    string zero = "0", searchedDate = "";
+string DateManager::countLastMonth() {
+    string searchedDate = "";
     string year = SupportiveMethods::convertIntToString(cutYear(getDateFromOs()));
-    string month = SupportiveMethods::convertIntToString(cutMonth(getDateFromOs()));
-    string day = SupportiveMethods::convertIntToString(cutDay(getDateFromOs()));
 
-    int lastMonth = SupportiveMethods::convertStringToInt(month) - 1 ;
+    int lastMonth = cutMonth(getDateFromOs()) - 1;
+    string month = SupportiveMethods::convertIntToString(lastMonth);
 
     if (month.length() > 1) {
-        searchedDate = year += month += day;
+        searchedDate = year + month + "01";
     } else {
-        searchedDate = year += zero += month += day;
+        searchedDate = year + "0" + month + "01";
     }
-    int searchedDateInt = SupportiveMethods::convertStringToInt(searchedDate);
-    cout << "searchedDate last month" << searchedDate << endl;
-
-    return searchedDateInt;
+    if (lastMonth < 2) {
+        year = SupportiveMethods::convertIntToString((cutYear(getDateFromOs()) - 1));
+        searchedDate = year + "12" + "01";
+    }
+    //cout <<  "searchedDate" << searchedDate << endl;
+    return searchedDate;
 }
 
 int DateManager::cutYear(string date) {
-    int i = 0, yearInt = 0;
+    int i = 0;
     string year = "";
     while (isdigit(date[i])) {
         year += date[i];
         i++;
     }
-    yearInt = stoi(year);
+    int yearInt = stoi(year);
     return  yearInt;
 }
 
 int DateManager::cutMonth(string date) {
+    int i = 5;
     string month = "";
-    int i = 5, monthInt = 0;
-    while (isdigit(writtenDate[i])) {
-        month += writtenDate[i];
+    while (isdigit(date[i])) {
+        month += date[i];
         i++;
     }
-    monthInt = stoi(month);
+    int monthInt = stoi(month);
     return monthInt;
 }
 
-int DateManager::cutDay(string writtenDate) {
+int DateManager::cutDay(string date) {
+    int i = 8;
     string day = "";
-    int i = 8, dayInt = 0;
-    while (isdigit(writtenDate[i])) {
-        day += writtenDate[i];
+    while (isdigit(date[i])) {
+        day += date[i];
         i++;
     }
-    dayInt = stoi(day);
+    int dayInt = stoi(day);
     return dayInt;
 }
 
@@ -153,3 +146,39 @@ string DateManager::addDashes(int date) {
 
     return dateWithDashes;
 }
+/*
+
+void DateManager::compareDates() {
+    while (SupportiveMethods::cutDashes(getDateFromOs()) > SupportiveMethods::cutDashes(writtenDate)) {
+        //cout << beginDate << "->" << endDate << endl;
+        SupportiveMethods::cutDashes(writtenDate) + 1;
+    }
+}
+
+int DateManager::cutSinleData(int i, string date) {
+    int singleDataInt = 0;
+    string singleData = "";
+    while (isdigit(date[i])) {
+        singleData += date[i];
+        i++;
+    }
+    singleData = stoi(singleData);
+    return  singleDataInt;
+}
+
+int DateManager::cutYear(string date) {
+    int i = 0, yearInt = cutSinleData(i, date);
+    return  yearInt;
+}
+
+int DateManager::cutMonth(string date) {
+    int i = 5, monthInt = cutSinleData(i, date);
+    return monthInt;
+}
+
+int DateManager::cutDay(string date) {
+    int i = 8, dayInt = cutSinleData(i, date);
+    return dayInt;
+}
+
+*/

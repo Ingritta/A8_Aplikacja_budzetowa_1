@@ -2,45 +2,30 @@
 
 vector <User> FileWithUsers::readUsersFromFile() {
 
-    CMarkup xml;
-
     User user;
     vector <User> users;
 
-    bool fileExists = xml.Load(NAME_OF_FILE);
-
-    if (!fileExists) {
-        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem(NAME_OF_FILE);
-    }
-    xml.IntoElem();
-    xml.FindElem("Users");
-    xml.IntoElem();
-    xml.FindElem("User");
-    while (xml.FindElem("User")) {
+    if (xml.Load(NAME_OF_FILE)) {
+        xml.FindElem();
         xml.IntoElem();
-        if (xml.FindElem("UserId")) {
-            user.setId(atoi(xml.GetData().c_str()));
+
+        while (xml.FindElem("User")) {
+            xml.IntoElem();
+            xml.FindElem("UserId");
+            user.setId(atoi(MCD_2PCSZ(xml.GetData())));
             xml.FindElem("Login");
             user.setLogin(xml.GetData());
             xml.FindElem("Password");
             user.setPassword(xml.GetData());
+            xml.OutOfElem();
+
             users.push_back(user);
         }
-        xml.OutOfElem();
-    }
-    for (size_t i = 0; i < users.size(); i++) {
-        cout << users[i].getId() << endl;
-        cout << users[i].getLogin() << endl;
-        cout << users[i].getPassword() << endl;
-        system("pause");
     }
     return users;
 }
 
 void FileWithUsers::addUserToFile (User user) {
-
-    CMarkup xml;
 
     bool fileExists = xml.Load(NAME_OF_FILE);
 
@@ -56,6 +41,23 @@ void FileWithUsers::addUserToFile (User user) {
     xml.AddElem("Login", user.getLogin());
     xml.AddElem("Password", user.getPassword());
     xml.Save(NAME_OF_FILE);
+}
+
+void FileWithUsers::changeData(string data) {
+    if (xml.Load(NAME_OF_FILE)) {
+        xml.FindElem();
+        xml.IntoElem();
+        xml.FindElem("User");
+        xml.ResetMainPos();
+        while (xml.FindElem()){
+            xml.RemoveElem();
+        }
+        xml.FindElem();
+        xml.IntoElem();
+         xml.FindElem("User");
+        xml.AddElem("Password", "data");
+        xml.Save(NAME_OF_FILE);
+    }
 }
 
 /*

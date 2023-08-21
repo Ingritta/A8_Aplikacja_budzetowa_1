@@ -13,9 +13,10 @@ class ApplicationManager {
     UserManager userManager;
     TransactionManager *transactionManager;
     const string NAME_OF_FILE_WITH_TRANSACTIONS;
+    const string NAME_OF_FILE_WITH_EXPENSES;
 
 public:
-    ApplicationManager(string nameOfFileWithUsers, string nameOfFileWithTransactions) : userManager(nameOfFileWithUsers), NAME_OF_FILE_WITH_TRANSACTIONS (nameOfFileWithTransactions) {
+    ApplicationManager(string nameOfFileWithUsers, string nameOfFileWithTransactions, string nameOfFileWithExpenses) : userManager(nameOfFileWithUsers), NAME_OF_FILE_WITH_TRANSACTIONS (nameOfFileWithTransactions), NAME_OF_FILE_WITH_EXPENSES (nameOfFileWithExpenses) {
         transactionManager = NULL;
     };
     ~ApplicationManager() {
@@ -30,8 +31,9 @@ public:
     void userLogout();
     int getLoggedUserId();
     void userLogin();
-    void showAllUsers();
-    void addDetailsOfTransaction();
+    //void showAllUsers();
+    void addDetailsOfIncomeTransaction();
+    void addDetailsOfExpenseTransaction();
     void printCurrentMonthBalance();
     void printLastMonthBalance();
     void printBalanceForChoosenPeriod();

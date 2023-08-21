@@ -1,16 +1,14 @@
-#include "TransactionFile.h"
-#include "TransactionManager.h"
-#include "SupportiveMethods.h"
+#include "ExpenseFile.h"
 
-string TransactionFile::getFileName() {
+string ExpenseFile::getFileName() {
     return NAME_OF_FILE;
 }
 
-int TransactionFile::getLastTransactionId() {
-    return lastTransactionId;
+int ExpenseFile::getLastExpenseId() {
+    return lastExpenseId;
 }
 
-void TransactionFile::addTransactionToFile(Transaction transaction) {//nazwa pliku
+void ExpenseFile::addExpenseToFile(Expense expense) {//nazwa pliku
 
     bool fileExists = xml.Load(NAME_OF_FILE);
 
@@ -20,48 +18,48 @@ void TransactionFile::addTransactionToFile(Transaction transaction) {//nazwa pli
     }
     xml.FindElem();
     xml.IntoElem();
-    xml.AddElem("Transaction");
+    xml.AddElem("Expense");
     xml.IntoElem();
-    xml.AddElem("TransactionId", transaction.getTransactionId());
-    xml.AddElem("UserId", transaction.getUserId());
-    xml.AddElem("Date", transaction.getDate());
-    xml.AddElem("Reason", transaction.getReason());
-    xml.AddElem("Quota", transaction.getQuota());
+    xml.AddElem("ExpenseId", expense.getExpenseId());
+    xml.AddElem("UserId", expense.getUserId());
+    xml.AddElem("Date", expense.getDate());
+    xml.AddElem("Reason", expense.getReason());
+    xml.AddElem("Quota", expense.getQuota());
     xml.Save(NAME_OF_FILE);
-    lastTransactionId++;
+    lastExpenseId++;
 }
 
-vector <Transaction> TransactionFile::readIncomeTransactionsOfLoggedUserFromFile(int loggedUserId) {
-    Transaction transaction;
-    vector <Transaction> transactions;
-    string dataOfLastTransaction = "";
+vector <Expense> ExpenseFile::readExpenseTransactionsOfLoggedUserFromFile(int loggedUserId) {
+    Expense expense;
+    vector <Expense> expenses;
+    string dataOfLastExpense = "";
 
     if (xml.Load(NAME_OF_FILE)) {
         xml.FindElem();
         xml.IntoElem();
 
-        while (xml.FindElem("Transaction")) {
+        while (xml.FindElem("Expense")) {
             xml.IntoElem();
-            xml.FindElem("TransactionId");
-            transaction.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
+            xml.FindElem("ExpenseId");
+            expense.setExpenseId(atoi(MCD_2PCSZ(xml.GetData())));
             xml.FindElem("UserId");
              if (atoi(MCD_2PCSZ(xml.GetData())) == loggedUserId){
-                transaction.setUserId(atoi(MCD_2PCSZ(xml.GetData())));
+                expense.setUserId(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Date");
-                transaction.setDate(atoi(MCD_2PCSZ(xml.GetData())));
+                expense.setDate(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Reason");
-                transaction.setReason(xml.GetData());
+                expense.setReason(xml.GetData());
                 xml.FindElem("Quota");
-                transaction.setQuota(SupportiveMethods::convertStringToFloat(MCD_2PCSZ(xml.GetData())));
+                expense.setQuota(SupportiveMethods::convertStringToFloat(MCD_2PCSZ(xml.GetData())));
                 xml.OutOfElem();
 
-                transactions.push_back(transaction);
+                expenses.push_back(expense);
             }
         }
     }
-    if (dataOfLastTransaction != "")
-       lastTransactionId = transaction.getTransactionId();
-    return transactions;
+    if (dataOfLastExpense != "")
+       lastExpenseId = expense.getExpenseId();
+    return expenses;
 }
 
 

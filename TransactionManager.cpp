@@ -1,7 +1,44 @@
 #include "TransactionManager.h"
 
-void TransactionManager::readTransactionsOfLoggedUserFromFile() {
-    transactions = transactionFile.readTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
+int TransactionManager::getNewTransactionId() {//dopisany
+
+    if (transactions.empty() == true)
+        return 1;
+    else
+        return transactions.back().getTransactionId() + 1;
+}
+
+int TransactionManager::getNewExpenseId() {//dopisany
+
+    if (expenses.empty() == true)
+        return 1;
+    else
+        return expenses.back().getExpenseId() + 1;
+}
+
+
+void TransactionManager::setAmountOfIncomesTransactions(int newAmountOfTransactions) {
+    if (newAmountOfTransactions >= 0) {
+        this -> amountOfIncomesTransactions = newAmountOfTransactions;
+    }
+}
+
+void TransactionManager::setAmountOfExpensesTransactions(int newAmountOfTransactions) {
+    if (newAmountOfTransactions >= 0) {
+        this -> amountOfExpensesTransactions = newAmountOfTransactions;
+    }
+}
+
+void TransactionManager::setChoosenBeginDate(int newChoosenBeginDate) {
+    if (newChoosenBeginDate >= 0) {
+        this -> choosenBeginDate = newChoosenBeginDate;
+    }
+}
+
+void TransactionManager::setEndDate(int newEndDate) {
+    if (newEndDate >= 0) {
+        this -> endDate = newEndDate;
+    }
 }
 
 char TransactionManager::selectOptionFromUserMenu() {
@@ -20,27 +57,39 @@ char TransactionManager::selectOptionFromUserMenu() {
     cout << "7. Wyloguj sie" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
+
+    //printAllTransactions();
+    //showAllTransactions();//?
     choice = SupportiveMethods::loadChar();
 
     return choice;
 }
 
-void TransactionManager::addDetailsOfTransaction() {
+void TransactionManager::addDetailsOfIncomeTransaction() {
     Transaction transaction;
     system("cls");
     cout << " >>> DODAWANIE NOWEJ TRANSAKCJI <<<" << endl << endl;
-    transaction = giveDataOfNewTransaction();
+    transaction = giveDataOfNewIncomeTransaction();
     transactions.push_back(transaction);
     transactionFile.addTransactionToFile(transaction);
 }
 
-Transaction TransactionManager::giveDataOfNewTransaction() {
+void TransactionManager::addDetailsOfExpenseTransaction() {
+    Expense expense;
+    system("cls");
+    cout << " >>> DODAWANIE NOWEJ TRANSAKCJI <<<" << endl << endl;
+    expense = giveDataOfNewExpenseTransaction();
+    expenses.push_back(expense);
+    expenseFile.addExpenseToFile(expense);
+}
+
+Transaction TransactionManager::giveDataOfNewIncomeTransaction() {
     Transaction transaction;
+
     string writtenQuota = "";
 
-    transaction.setTransactionId((transactionFile.getLastTransactionId() + 1));
+    transaction.setTransactionId(getNewTransactionId());
     transaction.setUserId(LOGGED_USER_ID);
-
     transaction.setDate(askAboutDate());
 
     cout << "Podaj zrodlo wplywu: ";
@@ -50,6 +99,23 @@ Transaction TransactionManager::giveDataOfNewTransaction() {
 
     return transaction;
 }
+
+Expense TransactionManager::giveDataOfNewExpenseTransaction() {
+    Expense expense;
+    string writtenQuota = "";
+
+    expense.setExpenseId(getNewExpenseId());
+    expense.setUserId(LOGGED_USER_ID);
+    expense.setDate(askAboutDate());
+
+    cout << "Przeznaczenie : ";
+    expense.setReason(SupportiveMethods::getLine());
+
+    expense.setQuota(correctQuota());
+
+    return expense;
+}
+
 
 float TransactionManager::correctQuota() {
     string writtenQuota = "";
@@ -66,6 +132,9 @@ float TransactionManager::correctQuota() {
 
 bool TransactionManager::checkWrittenQuota(string writtenQuota) {
     int k = 0;
+    if (writtenQuota.length() == 0) {
+        return false;
+    }
     size_t position = writtenQuota.find(',');
     for (unsigned int i = 0; i < writtenQuota.length(); i++) {
         if (writtenQuota[i] == ',') {
@@ -84,27 +153,20 @@ bool TransactionManager::checkWrittenQuota(string writtenQuota) {
     return  true;
 }
 
-void TransactionManager::printAllTransactions() {
-    system("cls");
-    if (!transactions.empty()) {// usunac
-        cout << "     >>> TRANSACJE<<<" << endl;
-        cout << "---------------------------" << endl;
-        for (vector <Transaction> :: iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
-            printDetailsOfTransaction(*itr);
-        }
-        cout << endl;
-    } else {
-        cout << endl << "Ksiazka adresowa jest pusta." << endl << endl;
-    }
-    system("pause");
+void TransactionManager::printDetailsOfIncomeTransaction(Transaction transaction) {
+    cout << endl << "Id transakcji:                " << transaction.getTransactionId() << endl;
+    cout << "Id uzytkownika:                       " << transaction.getUserId() << endl;
+    cout << "Data transakcji:                      " << dateManager.addDashes(transaction.getDate()) << endl;
+    cout << "Zrodlo:                               " << transaction.getReason() << endl;
+    cout << "Kwota:                                " << setprecision(2) << fixed << transaction.getQuota() << endl;
 }
 
-void TransactionManager::printDetailsOfTransaction(Transaction transaction) {
-    cout << endl << "Id transakcji:         " << transaction.getTransactionId() << endl;
-    cout << "Id uzytkownika:                " << transaction.getUserId() << endl;
-    cout << "Data transakcji:               " << dateManager.addDashes(transaction.getDate()) << endl;
-    cout << "Zrodlo/cel:                    " << transaction.getReason() << endl;
-    cout << "Kwota:                         " << setprecision(2) << fixed << transaction.getQuota() << endl;
+void TransactionManager::printDetailsOfExpenseTransaction(Expense expense) {
+    cout << endl << "Id transakcji:                " << expense.getExpenseId() << endl;
+    cout << "Id uzytkownika:                       " << expense.getUserId() << endl;
+    cout << "Data transakcji:                      " << dateManager.addDashes(expense.getDate()) << endl;
+    cout << "Przeznaczenie:                        " << expense.getReason() << endl;
+    cout << "Kwota:                                " << setprecision(2) << fixed << expense.getQuota() << endl;
 }
 
 int TransactionManager::askAboutDate() {
@@ -125,236 +187,168 @@ int TransactionManager::askAboutDate() {
     return dateOfTransaction;
 }
 
-void TransactionManager::printCurrentMonthBalance() {
-    float balance = 0;
-    choosenDate = dateManager.countFirstDayOfCurrentMonth();
-    system("cls");
-    while(choosenDate <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
-        balance += countBalance(transactions);
-        choosenDate++;
-    }
-    printBalance(balance);
+int TransactionManager::getChoosenBeginDate() {
+    return choosenBeginDate;
 }
 
-void TransactionManager::printBalanceForChoosenPeriod() {
-    float balance = 0;
-    choosenDate = askAboutDate();
+int TransactionManager::getEndDate() {
+    return endDate;
+}
+
+void TransactionManager::printCurrentMonthBalance() {
+    float incomesBalance = 0, expensesBalance = 0, balance = 0;
     system("cls");
-    while(choosenDate <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
-        balance += countBalance(transactions);
-        choosenDate++;
+
+    choosenBeginDate = dateManager.countFirstDayOfCurrentMonth();
+
+    cout <<"choosenBeginDate" << choosenBeginDate << endl;
+    while(getChoosenBeginDate() <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
+        incomesBalance += countIncomesBalance(transactions);
+        choosenBeginDate++;
     }
+    cout <<"choosenBeginDate" << choosenBeginDate << endl;
+    choosenBeginDate = dateManager.countFirstDayOfCurrentMonth();
+    cout <<"choosenBeginDate" << choosenBeginDate << endl;
+    while(getChoosenBeginDate() <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
+        expensesBalance += countExpensesBalance(expenses);
+        choosenBeginDate++;
+    }
+    cout <<"choosenBeginDate" << choosenBeginDate << endl;
+    balance = incomesBalance - expensesBalance;
+    printIncomeBalance(incomesBalance);
+    printExpenseBalance(expensesBalance);
     printBalance(balance);
+    system ("pause");
 }
 
 void TransactionManager::printLastMonthBalance() {
-    float balance = 0;
-    choosenDate = dateManager.countLastMonth();
+    float incomesBalance = 0, expensesBalance = 0, balance = 0;
     system("cls");
-    while(choosenDate <= dateManager.countFirstDayOfCurrentMonth()) {
-        balance += countBalance(transactions);
-        choosenDate++;
+
+    choosenBeginDate = SupportiveMethods::convertStringToInt(dateManager.countLastMonth());
+    while(choosenBeginDate < dateManager.countFirstDayOfCurrentMonth()) {
+        incomesBalance += countIncomesBalance(transactions);
+        choosenBeginDate++;
     }
+    choosenBeginDate = SupportiveMethods::convertStringToInt(dateManager.countLastMonth());
+    while(choosenBeginDate < dateManager.countFirstDayOfCurrentMonth()) {
+        expensesBalance += countExpensesBalance(expenses);
+        choosenBeginDate++;
+    }
+    balance = incomesBalance - expensesBalance;
+    printIncomeBalance(incomesBalance);
+    printExpenseBalance(expensesBalance);
     printBalance(balance);
+    system ("pause");
 }
 
-float TransactionManager::countBalance(vector <Transaction> transactions) { //wczesniej pobrac i uporzadkowac vector
+void TransactionManager::printBalanceForChoosenPeriod() {
+    float incomesBalance = 0, expensesBalance = 0, balance = 0;
+    system("cls");
+
+    cout << "Podaj date poczatkowa: " << endl;
+    choosenBeginDate = askAboutDate();
+    setChoosenBeginDate(choosenBeginDate);
+    int beginDate = choosenBeginDate;
+
+    cout << "Podaj date koncowa: " << endl;
+    endDate = askAboutDate();
+    setEndDate(endDate);
+
+    while(beginDate <= getEndDate()) {
+        incomesBalance += countIncomesBalance(transactions);
+        beginDate++;
+    }
+    beginDate = choosenBeginDate;
+    while(beginDate <= getEndDate()) {
+        expensesBalance += countExpensesBalance(expenses);
+        beginDate++;
+    }
+    balance = incomesBalance - expensesBalance;
+    printIncomeBalance(incomesBalance);
+    printExpenseBalance(expensesBalance);
+    printBalance(balance);
+    system ("pause");
+}
+
+float TransactionManager::countIncomesBalance(vector <Transaction> transactions) { //wczesniej pobrac i uporzadkowac vector
     float currentMonthBalance = 0;
-    int amountOfTransaction = 0;
+
     for (vector <Transaction>::iterator  itr = transactions.begin(); itr != transactions.end(); itr++) {
-        if (itr -> getDate() == choosenDate) {
-            printDetailsOfTransaction(*itr);
-            amountOfTransaction++;
+        if (itr -> getDate() == getChoosenBeginDate()) {
+            printDetailsOfIncomeTransaction(*itr);
             currentMonthBalance += itr -> getQuota();
-            return currentMonthBalance;
+            amountOfIncomesTransactions++;
         }
     }
+    return currentMonthBalance;
+}
+
+float TransactionManager::countExpensesBalance(vector <Expense> expenses) { //wczesniej pobrac i uporzadkowac vector
+    float currentMonthBalance = 0;
+
+    for (vector <Expense>::iterator  itr = expenses.begin(); itr != expenses.end(); itr++) {
+        if (itr -> getDate() == getChoosenBeginDate()) {
+            printDetailsOfExpenseTransaction(*itr);
+            currentMonthBalance += itr -> getQuota();
+            amountOfExpensesTransactions++;
+        }
+    }
+    return currentMonthBalance;
+}
+
+void TransactionManager::printIncomeBalance(float incomeBalance) {
+    cout << "-----------------------------------------------" << endl;
+    cout << setprecision(2) << "Suma wplywow wynosi: " << fixed << incomeBalance << endl;
+    cout << "-----------------------------------------------" << endl;
+}
+
+void TransactionManager::printExpenseBalance(float expenseBalance) {
+    cout << "-----------------------------------------------" << endl;
+    cout << setprecision(2) << "Suma wydatkow wynosi: " << fixed << expenseBalance << endl;
+    cout << "-----------------------------------------------" << endl;
 }
 
 void TransactionManager::printBalance(float balance) {
     cout << "-----------------------------------------------" << endl;
     cout << setprecision(2) << "Bilans wynosi: " << fixed << balance << endl;
     cout << "-----------------------------------------------" << endl;
-    system ("pause");
-}
-/*
-void TransactionManager::countBalanceForLastMonth(vector <Transaction> transactions) { //wczesniej pobrac i uporzadkowac vector
-    float currentMonthBalance = 0;
-    int amountOfTransaction = 0;
-    while(choosenDate < dateManager.countFirstDayOfCurrentMonth()) {
-        for (vector <Transaction>::iterator  itr = transactions.begin(); itr != transactions.end(); itr++) {
-            if (itr -> getDate() == choosenDate) {
-                printDetailsOfTransaction(*itr);
-                currentMonthBalance += itr -> getQuota();
-                amountOfTransaction++;
-            }
-        }
-        choosenDate++;
-    }
-    cout << setprecision(2) << fixed << currentMonthBalance << endl;
-    system ("pause");
 }
 
-
-void TransactionManager::setAmountOfTransactions(int newAmountOfTransactions) {
-    if (newAmountOfTransactions >= 0) {
-        this -> amountOfTransactions = newAmountOfTransactions;
-    }
-}
-
-void TransactionManager::printAmountOfTransactions() {
-    if (amountOfTransactions == 0)
-        cout << endl << "W ksiazce adresowej nie ma adresatow z tymi danymi." << endl;
-    else
-        cout << endl << "Ilosc adresatow w ksiazce adresowej wynosi: " << amountOfTransactions << endl << endl;
-}
-*/
-
-/*
-void ContactManager::searchContactByName() {
-    string nameOfSerchedContact = "";
-    int amountOfContacts = 0;
-
+void TransactionManager::printAllIncomeTransactions() {
     system("cls");
-    if (!contacts.empty()) {
-        cout << ">>> WYSZUKIWANIE ADRESATOW O IMIENIU <<<" << endl << endl;
-
-        cout << "Wyszukaj adresatow o imieniu: ";
-        nameOfSerchedContact = SupportiveMethods::getLine();
-        nameOfSerchedContact = SupportiveMethods::replaceFirstLetterForCapitalRestForSmall(nameOfSerchedContact);
-
-        for (vector <Contact>::iterator  itr = contacts.begin(); itr != contacts.end(); itr++) {
-            if (itr -> getName() == nameOfSerchedContact) {
-                printDataOfContact(*itr);
-                amountOfContacts++;
-                setNumberOfContacts(amountOfContacts);
-            }
+    if (!transactions.empty()) {
+        cout << "     >>> TRANSACJE<<<      " << endl;
+        cout << "---------------------------" << endl;
+        for (vector <Transaction> :: iterator itr = transactions.begin(); itr != transactions.end(); itr++) {
+            printDetailsOfIncomeTransaction(*itr);
         }
-        printNumberOfFoundContacts();
+        cout << endl;
     } else {
-        cout << endl << "Ksiazka adresowa jest pusta" << endl << endl;
-    }
-    cout << endl;
-    system("pause");
-}
-
-void ContactManager::removeContact() {
-    int IdOfRemovingContact = 0, vectorSize = contacts.size(), counter = 0;
-    char sign;
-    bool checkIfContactExists = false;
-
-    system("cls");
-    cout << ">>> USUWANIE WYBRANEGO ADRESATA <<<" << endl << endl;
-
-    IdOfRemovingContact = SupportiveMethods::giveIdOfSelectedContact();
-
-    for (int i = 0; i < vectorSize; i++) {
-        if (contacts[i].getId() == IdOfRemovingContact) {
-            checkIfContactExists = true;
-            cout << endl << "Potwierdz naciskajac klawisz 't': ";
-            sign = SupportiveMethods::loadChar();
-
-            if(sign == 't') {
-                fileWithContacts.removeContactFromFile(IdOfRemovingContact);
-                contacts.erase(contacts.begin() + counter);
-                cout << endl << endl << "Szukany adresat zostal USUNIETY" << endl << endl;
-                system("pause");
-
-            } else {
-                cout << endl << endl << "Wybrany adresat NIE zostal usuniety" << endl << endl;
-                system("pause");
-            }
-        }
-        counter++;
-    }
-    if (checkIfContactExists == false) {
-        cout << endl << "Nie ma takiego adresata w ksiazce adresowej" << endl << endl;
-        system("pause");
-    }
-}
-
-void ContactManager::changeDetailsOfContact() {
-    system("cls");
-    Contact contact;
-    int idOfEditingContact = 0;
-    string lineWithContactData = "";
-
-    cout << ">>> EDYCJA WYBRANEGO ADRESATA <<<" << endl << endl;
-    idOfEditingContact = SupportiveMethods::giveIdOfSelectedContact();
-
-    char choice;
-    bool checkIfContactExists = false;
-
-    for (vector <Contact>::iterator  itr = contacts.begin(); itr != contacts.end(); itr++) {
-        if (itr -> getId() == idOfEditingContact) {
-
-            checkIfContactExists = true;
-            choice = selectOptionFromEditMenu();
-
-            switch (choice) {
-            case '1':
-                cout << "Podaj nowe imie: ";
-                itr -> setName(SupportiveMethods::getLine());
-                itr -> setName(SupportiveMethods::replaceFirstLetterForCapitalRestForSmall(itr -> getName()));
-                lineWithContactData = fileWithContacts.convertContactDataToLinesWithDataSeparatedByPipes(*itr);
-                fileWithContacts.editChoosenLineInFile(lineWithContactData, idOfEditingContact);
-                break;
-            case '2':
-                cout << "Podaj nowe nazwisko: ";
-                itr -> setSurname(SupportiveMethods::getLine());
-                itr -> setSurname(SupportiveMethods::replaceFirstLetterForCapitalRestForSmall(itr -> getSurname()));
-                lineWithContactData = fileWithContacts.convertContactDataToLinesWithDataSeparatedByPipes(*itr);
-                fileWithContacts.editChoosenLineInFile(lineWithContactData, idOfEditingContact);
-                break;
-            case '3':
-                cout << "Podaj nowy numer telefonu: ";
-                itr -> setPhoneNumber(SupportiveMethods::getLine());
-                lineWithContactData = fileWithContacts.convertContactDataToLinesWithDataSeparatedByPipes(*itr);
-                fileWithContacts.editChoosenLineInFile(lineWithContactData, idOfEditingContact);
-                break;
-            case '4':
-                cout << "Podaj nowy email: ";
-                itr -> setEmail(SupportiveMethods::getLine());
-                lineWithContactData = fileWithContacts.convertContactDataToLinesWithDataSeparatedByPipes(*itr);
-                fileWithContacts.editChoosenLineInFile(lineWithContactData, idOfEditingContact);
-                break;
-            case '5':
-                cout << "Podaj nowy adres zamieszkania: ";
-                itr -> setAddress(SupportiveMethods::getLine());
-                lineWithContactData = fileWithContacts.convertContactDataToLinesWithDataSeparatedByPipes(*itr);
-                fileWithContacts.editChoosenLineInFile(lineWithContactData, idOfEditingContact);
-                break;
-            case '6':
-                cout << endl << "Powrot do menu uzytkownika" << endl << endl;
-                break;
-            default:
-                cout << endl << "Nie ma takiej opcji w menu! Powrot do menu uzytkownika." << endl << endl;
-                break;
-            }
-        }
-    }
-    if (checkIfContactExists == false) {
-        cout << endl << "Nie ma takiego adresata." << endl << endl;
+        cout << endl << "Brak wykonanych transakcji." << endl << endl;
     }
     system("pause");
 }
 
-
-void TransactionManager::countCurrentMonthBalance(vector <Transaction> transactions) { //wczesniej pobrac i uporzadkowac vector
-    int dayOfCurrentMonth = dateManager.countFirstDayOfCurrentMonth();
-    float currentMonthBalance = 0;
-
-    while(dayOfCurrentMonth <= SupportiveMethods::cutDashes(dateManager.getDateFromOs())) {
-        for (vector <Transaction>::iterator  itr = transactions.begin(); itr != transactions.end(); itr++) {
-            if (itr -> getDate() == dayOfCurrentMonth) {
-                printDetailsOfTransaction(*itr);
-                currentMonthBalance += itr -> getQuota();
-            }
+void TransactionManager::printAllExpenseTransactions() {
+    system("cls");
+    if (!expenses.empty()) {
+        cout << "     >>> TRANSACJE<<<      " << endl;
+        cout << "---------------------------" << endl;
+        for (vector <Expense> :: iterator itr = expenses.begin(); itr != expenses.end(); itr++) {
+            printDetailsOfExpenseTransaction(*itr);
         }
-        dayOfCurrentMonth++;
+        cout << endl;
+    } else {
+        cout << endl << "Brak wykonanych transakcji." << endl << endl;
     }
-    cout << setprecision(2) << fixed << currentMonthBalance << endl;
-    system ("pause");
+    system("pause");
 }
 
-*/
+void TransactionManager::printComunicateAboutIncomes() {
+
+    if (amountOfTransactions > 0) {
+        cout <<  "     >>> TRANSACJE PRZYCHODZACE <<<      " << endl;
+    } else
+        cout << "Nie zarejestrowano transakcji przychodzacych w danym okresie." << endl;
+}

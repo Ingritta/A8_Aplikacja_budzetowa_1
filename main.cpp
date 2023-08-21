@@ -1,11 +1,10 @@
 #include <iostream>
 #include "ApplicationManager.h"
-#include "Markup.h"//?
 
 using namespace std;
 
 int main() {
-    ApplicationManager ApplicationManager ("Users.xml", "Transactions.xml");
+    ApplicationManager ApplicationManager ("Users.xml", "Transactions.xml", "Expenses.xml");
 
     char choice;
 
@@ -17,7 +16,7 @@ int main() {
             switch (choice) {
             case '1':
                 ApplicationManager.userRegistration();
-                ApplicationManager.showAllUsers();
+                //ApplicationManager.showAllUsers();
                 break;
             case '2':
                 ApplicationManager.userLogin();
@@ -36,10 +35,10 @@ int main() {
 
             switch (choice) {
             case '1':
-                ApplicationManager.addDetailsOfTransaction();
+                ApplicationManager.addDetailsOfIncomeTransaction();
                 break;
             case '2':
-                // ApplicationManager.searchContactByName();
+                ApplicationManager.addDetailsOfExpenseTransaction();
                 break;
             case '3':
                 ApplicationManager.printCurrentMonthBalance();

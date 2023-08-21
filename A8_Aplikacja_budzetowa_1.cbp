@@ -36,12 +36,12 @@
 		<Unit filename="ApplicationManager.h" />
 		<Unit filename="DateManager.cpp" />
 		<Unit filename="DateManager.h" />
-		<Unit filename="ExpensesFile.cpp" />
-		<Unit filename="ExpensesFile.h" />
+		<Unit filename="Expense.cpp" />
+		<Unit filename="Expense.h" />
+		<Unit filename="ExpenseFile.cpp" />
+		<Unit filename="ExpenseFilee.h" />
 		<Unit filename="FileWithUsers.cpp" />
 		<Unit filename="FileWithUsers.h" />
-		<Unit filename="IncomeFile.cpp" />
-		<Unit filename="IncomeFile.h" />
 		<Unit filename="Markup.cpp" />
 		<Unit filename="Markup.h" />
 		<Unit filename="SupportiveMethods.cpp" />
@@ -56,7 +56,6 @@
 		<Unit filename="User.h" />
 		<Unit filename="UserManager.cpp" />
 		<Unit filename="UserManager.h" />
-		<Unit filename="Users.xml" />
 		<Unit filename="XmlFile.cpp" />
 		<Unit filename="XmlFile.h" />
 		<Unit filename="main.cpp" />

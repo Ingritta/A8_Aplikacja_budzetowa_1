@@ -27,7 +27,7 @@ public:
     bool checkIfDateIsWrittenProperly(string writtenDate);
     int checkDetailsOfWrittenDate();
     int countFirstDayOfCurrentMonth();
-    int countLastMonth();
+    string countLastMonth();
     bool checkIfIsLeapYear();
     void compareDates();
     int cutDashes(string date);

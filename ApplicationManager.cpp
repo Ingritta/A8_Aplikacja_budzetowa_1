@@ -3,15 +3,15 @@
 void ApplicationManager::userRegistration() {
     userManager.userRegistration();
 }
-
+/*
 void ApplicationManager::showAllUsers() {
     userManager.showAllUsers();
 }
-
+*/
 void ApplicationManager::userLogin() {
     userManager.userLogin();
     if (userManager.checkIfUserIsLogged () == false) {
-        transactionManager = new TransactionManager(NAME_OF_FILE_WITH_TRANSACTIONS, userManager.getLoggedUserId());
+        transactionManager = new TransactionManager(NAME_OF_FILE_WITH_TRANSACTIONS, NAME_OF_FILE_WITH_EXPENSES, userManager.getLoggedUserId());
     }
 }
 
@@ -37,8 +37,12 @@ bool ApplicationManager::checkIfUserIsLogged () {
     return userManager.checkIfUserIsLogged ();
 }
 
-void ApplicationManager::addDetailsOfTransaction() {
-    transactionManager->addDetailsOfTransaction();
+void ApplicationManager::addDetailsOfIncomeTransaction() {
+    transactionManager->addDetailsOfIncomeTransaction();
+}
+
+void ApplicationManager::addDetailsOfExpenseTransaction() {
+    transactionManager->addDetailsOfExpenseTransaction();
 }
 
 void ApplicationManager::printCurrentMonthBalance() {

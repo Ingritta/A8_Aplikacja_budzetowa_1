@@ -27,7 +27,7 @@ public:
          users = fileWithUsers.readUsersFromFile();
     };
     void userRegistration();
-    void showAllUsers();
+    //void showAllUsers();
     void userLogin();
     void changePasswordOfLoggedUser();
     void saveAllUsersInFile();

@@ -63,15 +63,6 @@ bool UserManager::checkIfLoginExists(string login) {
     return false;
 }
 
-void UserManager::showAllUsers() {
-    for (size_t i = 0; i < users.size(); i++) {
-        cout << users[i].getId() << endl;
-        cout << users[i].getLogin() << endl;
-        cout << users[i].getPassword() << endl;
-        system("pause");
-    }
-}
-
 void UserManager::userLogin() {
     User user;
     string login = "", password = "";
@@ -111,6 +102,7 @@ void UserManager::changePasswordOfLoggedUser() {
 
     for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
         if (itr -> getId() == loggedUserId) {
+            //Edit(SupportiveMethods::getLine();
             itr -> setPassword(newPassword);
             cout << "Haslo zostalo zmienione." << endl << endl;
             system("pause");
@@ -118,11 +110,7 @@ void UserManager::changePasswordOfLoggedUser() {
     }
     //saveAllUsersInFile();
 }
-/*
-void UserManager::saveAllUsersInFile() {
-    fileWithUsers.saveAllUsersInFile(users);
-}
-*/
+
 int UserManager::getLoggedUserId() {
     return loggedUserId;
 }
@@ -142,4 +130,18 @@ void UserManager::userLogout() {
 char UserManager::selectOptionFromUserMenu() {
     return 0;
 }
-
+/*
+void UserManager::showAllUsers() {
+    for (size_t i = 0; i < users.size(); i++) {
+        cout << users[i].getId() << endl;
+        cout << users[i].getLogin() << endl;
+        cout << users[i].getPassword() << endl;
+        system("pause");
+    }
+}
+*/
+/*
+void UserManager::saveAllUsersInFile() {
+    fileWithUsers.saveAllUsersInFile(users);
+}
+*/

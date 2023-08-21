@@ -14,18 +14,24 @@ using namespace std;
 
 class TransactionFile {
 
+     CMarkup xml;
+
 protected:
 
     const string NAME_OF_FILE;
     int lastTransactionId;
 
 public:
-    TransactionFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {}
+
+    TransactionFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {
+    int lastTransactionId = 0;
+    }
     string getFileName();
     bool checkIfFileIsEmpty();
     void addTransactionToFile(Transaction transactions);
     int getLastTransactionId();
-    vector <Transaction> readTransactionsOfLoggedUserFromFile(int loggedUserId);
+    vector <Transaction> readIncomeTransactionsOfLoggedUserFromFile(int loggedUserId);
+    Transaction getDataOfTransaction(int loggedUserId);
 };
 
 #endif
