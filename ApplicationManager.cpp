@@ -3,11 +3,7 @@
 void ApplicationManager::userRegistration() {
     userManager.userRegistration();
 }
-/*
-void ApplicationManager::showAllUsers() {
-    userManager.showAllUsers();
-}
-*/
+
 void ApplicationManager::userLogin() {
     userManager.userLogin();
     if (userManager.checkIfUserIsLogged () == false) {
@@ -56,3 +52,9 @@ void ApplicationManager::printLastMonthBalance() {
 void ApplicationManager::printBalanceForChoosenPeriod() {
     transactionManager->printBalanceForChoosenPeriod();
 }
+
+/*
+void ApplicationManager::showAllUsers() {
+    userManager.showAllUsers();
+}
+*/

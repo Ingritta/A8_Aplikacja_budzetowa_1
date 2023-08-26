@@ -21,22 +21,26 @@ private:
     int dateFromOS;
     string writtenDate;
 
-public:
-
-    const string getDateFromOs();
-    bool checkIfDateIsWrittenProperly(string writtenDate);
-    int checkDetailsOfWrittenDate();
-    int countFirstDayOfCurrentMonth();
-    string countLastMonth();
     bool checkIfIsLeapYear();
     void compareDates();
-    int cutDashes(string date);
     int cutYear(string writtenDate);
     int cutMonth(string writtenDate);
     int cutDay(string writtenDate);
+
+public:
+
+    bool checkIfDateIsWrittenProperly(string writtenDate);
     void setWrittenDate(string newWrittenDate);
+    const string getDateFromOs();
     string getWrittenDate();
     string addDashes(int date);
+    string countLastMonth();
+    int cutDashes(string date);
+    int checkDetailsOfWrittenDate();
+    int countFirstDayOfCurrentMonth();
+
+
+
 };
 
 #endif

@@ -17,25 +17,27 @@ class UserManager {
     User user;
     vector <User> users;
     FileWithUsers fileWithUsers;
+
     User giveDataOfNewUser();
     int getNewUserId();
     bool checkIfLoginExists(string login);
+    void saveAllUsersInFile();
+    char selectOptionFromUserMenu();
 
 public:
     UserManager(string nameOfFileWithUsers) : fileWithUsers(nameOfFileWithUsers) {
-         loggedUserId = 0;
-         users = fileWithUsers.readUsersFromFile();
+        loggedUserId = 0;
+        users = fileWithUsers.readUsersFromFile();
     };
-    void userRegistration();
-    //void showAllUsers();
-    void userLogin();
-    void changePasswordOfLoggedUser();
-    void saveAllUsersInFile();
-    char selectOptionFromMainMenu();
-    char selectOptionFromUserMenu();
     bool checkIfUserIsLogged ();
-    int getLoggedUserId();
+    void userRegistration();
+    void userLogin();
     void userLogout();
+    void changePasswordOfLoggedUser();
+    char selectOptionFromMainMenu();
+    int getLoggedUserId();
 };
 
 #endif
+
+//void showAllUsers();

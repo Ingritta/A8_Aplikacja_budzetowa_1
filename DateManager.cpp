@@ -91,7 +91,6 @@ string DateManager::countLastMonth() {
         year = SupportiveMethods::convertIntToString((cutYear(getDateFromOs()) - 1));
         searchedDate = year + "12" + "01";
     }
-    //cout <<  "searchedDate" << searchedDate << endl;
     return searchedDate;
 }
 
@@ -146,39 +145,3 @@ string DateManager::addDashes(int date) {
 
     return dateWithDashes;
 }
-/*
-
-void DateManager::compareDates() {
-    while (SupportiveMethods::cutDashes(getDateFromOs()) > SupportiveMethods::cutDashes(writtenDate)) {
-        //cout << beginDate << "->" << endDate << endl;
-        SupportiveMethods::cutDashes(writtenDate) + 1;
-    }
-}
-
-int DateManager::cutSinleData(int i, string date) {
-    int singleDataInt = 0;
-    string singleData = "";
-    while (isdigit(date[i])) {
-        singleData += date[i];
-        i++;
-    }
-    singleData = stoi(singleData);
-    return  singleDataInt;
-}
-
-int DateManager::cutYear(string date) {
-    int i = 0, yearInt = cutSinleData(i, date);
-    return  yearInt;
-}
-
-int DateManager::cutMonth(string date) {
-    int i = 5, monthInt = cutSinleData(i, date);
-    return monthInt;
-}
-
-int DateManager::cutDay(string date) {
-    int i = 8, dayInt = cutSinleData(i, date);
-    return dayInt;
-}
-
-*/

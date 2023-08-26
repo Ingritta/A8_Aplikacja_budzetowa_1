@@ -43,24 +43,26 @@ void FileWithUsers::addUserToFile (User user) {
     xml.Save(NAME_OF_FILE);
 }
 
-void FileWithUsers::changeData(string data) {
+void FileWithUsers::removeData() {
     if (xml.Load(NAME_OF_FILE)) {
         xml.FindElem();
         xml.IntoElem();
         xml.FindElem("User");
         xml.ResetMainPos();
-        while (xml.FindElem()){
+        while (xml.FindElem()) {
             xml.RemoveElem();
         }
-        xml.FindElem();
-        xml.IntoElem();
-         xml.FindElem("User");
-        xml.AddElem("Password", "data");
         xml.Save(NAME_OF_FILE);
     }
 }
-
 /*
+void FileWithUsers::saveAllUsersInFile(vector <User> &users){
+    User user;
+    for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
+        addUserToFile(user);
+    }
+}
+
 void FileWithUsers::saveAllUsersInFile(vector <User> &users) {
 
     CMarkup xml;

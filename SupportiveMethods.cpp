@@ -32,7 +32,6 @@ string SupportiveMethods::getNumber(string text, int signPosition) {
 
 string SupportiveMethods::getLine() {
     string entrance = "";
-    //cin.sync();//usuwa wszystko z bufora
     getline(cin, entrance);
     return entrance;
 }
@@ -80,7 +79,6 @@ int SupportiveMethods::cutDashes(string date) {
     date = date.erase(4,1);
     date.erase(6,1);
     int dateInt = (atoi(date.c_str()));
-    //cout << dateInt << endl;
 
     return dateInt;
 }

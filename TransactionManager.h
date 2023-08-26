@@ -39,7 +39,6 @@ class TransactionManager {
 
     Income giveDataOfNewIncomeTransaction();
     Expense giveDataOfNewExpenseTransaction();
-    //int getIncomeId();
     int getNewExpenseId();
     int getNewIncomeId();
     void readTransactionsOfLoggedUserFromFile();
@@ -71,11 +70,4 @@ public:
     void printBalanceForChoosenPeriod();
 };
 
-
-
 #endif
-
-/*
- void setAmountOfIncomesTransactions(int newAmountOfTransactions);
- void setAmountOfExpensesTransactions(int newAmountOfTransactions);
-*/

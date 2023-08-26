@@ -20,8 +20,8 @@ public:
     FileWithUsers(string nameOfFile) : XmlFile(nameOfFile) {};
     void addUserToFile(User user);
     vector <User> readUsersFromFile();
-    void saveAllUsersInFile(vector <User> &users);
-    void changeData(string data);
+    void removeData();
+    //void saveAllUsersInFile(vector <User> &users);
 };
 
 #endif

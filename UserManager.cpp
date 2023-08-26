@@ -95,6 +95,7 @@ void UserManager::userLogin() {
     system("pause");
     return;
 }
+
 void UserManager::changePasswordOfLoggedUser() {
     string newPassword = "";
     cout << "Podaj nowe haslo: ";
@@ -102,13 +103,16 @@ void UserManager::changePasswordOfLoggedUser() {
 
     for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
         if (itr -> getId() == loggedUserId) {
-            //Edit(SupportiveMethods::getLine();
-            itr -> setPassword(newPassword);
+            fileWithUsers.removeData();
+            user.setId(loggedUserId);
+            user.setLogin(itr -> getLogin());
+            user.setPassword(newPassword);
+            fileWithUsers.addUserToFile(user);
+
             cout << "Haslo zostalo zmienione." << endl << endl;
             system("pause");
         }
     }
-    //saveAllUsersInFile();
 }
 
 int UserManager::getLoggedUserId() {
@@ -140,8 +144,4 @@ void UserManager::showAllUsers() {
     }
 }
 */
-/*
-void UserManager::saveAllUsersInFile() {
-    fileWithUsers.saveAllUsersInFile(users);
-}
-*/
+

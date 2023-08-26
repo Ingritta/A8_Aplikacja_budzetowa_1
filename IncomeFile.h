@@ -14,24 +14,24 @@ using namespace std;
 
 class IncomeFile {
 
-     CMarkup xml;
+    CMarkup xml;
 
 protected:
 
     const string NAME_OF_FILE;
     int lastIncomeId;
 
-public:
-
-    IncomeFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {
-    lastIncomeId = 0;
-    }
     string getFileName();
-    bool checkIfFileIsEmpty();
-    void addTransactionToFile(Income incomes);
     int getLastIncomeId();
-    vector <Income> readIncomeTransactionsOfLoggedUserFromFile(int loggedUserId);
     Income getDataOfTransaction(int loggedUserId);
+
+public:
+    IncomeFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {
+        lastIncomeId = 0;
+    }
+
+    void addTransactionToFile(Income incomes);
+    vector <Income> readIncomeTransactionsOfLoggedUserFromFile(int loggedUserId);
 };
 
 #endif

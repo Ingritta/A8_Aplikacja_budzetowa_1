@@ -12,6 +12,7 @@
 using namespace std;
 
 class SupportiveMethods {
+
 public:
     static string convertIntToString(int number);
     static int convertStringToInt(string number);
@@ -22,7 +23,6 @@ public:
     static int loadInteger();
     static float convertStringToFloat(string number);
     static int cutDashes(string date);
-    //static int giveIdOfSelectedContact();
 };
 
 #endif

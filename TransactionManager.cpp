@@ -265,25 +265,4 @@ void TransactionManager::printBalance() {
     cout << "--------------------------------------------------" << endl;
     system ("pause");
 }
-/*
-int TransactionManager::getChoosenBeginDate() {
-    return choosenBeginDate;
-}
-
-int TransactionManager::getEndDate() {
-    return endDate;
-}
-
-void TransactionManager::setAmountOfIncomesTransactions(int newAmountOfTransactions) {
-    if (newAmountOfTransactions >= 0) {
-        this -> amountOfIncomesTransactions = newAmountOfTransactions;
-    }
-}
-
-void TransactionManager::setAmountOfExpensesTransactions(int newAmountOfTransactions) {
-    if (newAmountOfTransactions >= 0) {
-        this -> amountOfExpensesTransactions = newAmountOfTransactions;
-    }
-}
-*/
 
