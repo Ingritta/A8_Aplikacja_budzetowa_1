@@ -38,15 +38,15 @@ bool ApplicationManager::checkIfUserIsLogged () {
 }
 
 void ApplicationManager::addDetailsOfIncomeTransaction() {
-    transactionManager->addDetailsOfIncomeTransaction();
+    transactionManager -> addDetailsOfIncomeTransaction();
 }
 
 void ApplicationManager::addDetailsOfExpenseTransaction() {
-    transactionManager->addDetailsOfExpenseTransaction();
+    transactionManager -> addDetailsOfExpenseTransaction();
 }
 
 void ApplicationManager::printCurrentMonthBalance() {
-    transactionManager->printCurrentMonthBalance();
+    transactionManager -> printCurrentMonthBalance();
 }
 
 void ApplicationManager::printLastMonthBalance() {

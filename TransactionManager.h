@@ -13,9 +13,9 @@
 #include <algorithm>
 #include <conio.h>
 
-#include "TransactionFile.h"
+#include "IncomeFile.h"
 #include "ExpenseFile.h"
-#include "Transaction.h"
+#include "Income.h"
 #include "Expense.h"
 #include "SupportiveMethods.h"
 #include "DateManager.h"
@@ -24,64 +24,58 @@ using namespace std;
 
 class TransactionManager {
 
-    const int LOGGED_USER_ID;
-    vector <Transaction> transactions;
-    vector <Expense> expenses;
-    TransactionFile transactionFile;
+    const string NAME_OF_FILE;
+    IncomeFile incomeFile;
     ExpenseFile expenseFile;
-    int amountOfIncomesTransactions;//?
-    int amountOfExpensesTransactions;//?
+    const int LOGGED_USER_ID;
+    vector <Income> incomes;
+    vector <Expense> expenses;
+    int amountOfIncomesTransactions;
+    int amountOfExpensesTransactions;
     int choosenBeginDate;
     int endDate;
-    const string NAME_OF_FILE;
-    Transaction giveDataOfNewIncomeTransaction();
-    Expense giveDataOfNewExpenseTransaction();
+    float expenseBalance;
+    float incomeBalance;
 
-public:
-    TransactionManager(string nameOfFileWithTransactions, string nameOfFileWithExpenses, int loggedUserId) : transactionFile(nameOfFileWithTransactions), expenseFile(nameOfFileWithExpenses), LOGGED_USER_ID(loggedUserId) {
-        loggedUserId = 0;
-        transactions = transactionFile.readIncomeTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
-        expenses = expenseFile.readExpenseTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
-        amountOfIncomesTransactions = 0;
-        amountOfExpensesTransactions = 0;
-    };
-    DateManager dateManager;
-    void setChoosenBeginDate(int newChoosenBeginDate);
-    void setEndDate(int newEndDate);
-    int getTransactionId();
+    Income giveDataOfNewIncomeTransaction();
+    Expense giveDataOfNewExpenseTransaction();
+    //int getIncomeId();
     int getNewExpenseId();
-     int getNewTransactionId();
-     int getChoosenBeginDate();
-     int getEndDate();
-    void setAmountOfIncomesTransactions(int newAmountOfTransactions);
-    void setAmountOfExpensesTransactions(int newAmountOfTransactions);
-    void addDetailsOfIncomeTransaction();
-    void addDetailsOfExpenseTransaction();
+    int getNewIncomeId();
     void readTransactionsOfLoggedUserFromFile();
-    bool checkIfDataIsWritten();
-    char selectOptionFromUserMenu();
-    void printCurrentMonthBalance();
-    void removeTransaction();
-    void changeDetailsOfTransaction();
-    void printDetailsOfIncomeTransaction(Transaction transaction);
+    void printDetailsOfIncomeTransaction(Income income);
     void printDetailsOfExpenseTransaction(Expense expense);
     int askAboutDate();
     bool checkWrittenQuota(string writtenQuota);
     float correctQuota();
-    float countIncomesBalance(vector <Transaction> transactions);
-    float countExpensesBalance(vector <Expense> expenses);
+    void countIncomesBalance(vector <Income> incomes);
+    void countExpensesBalance(vector <Expense> expenses);
+    void countFirstDayOfCurrentMonth();
+    void printBalance();
+
+public:
+    TransactionManager(string nameOfFileWithIncomes, string nameOfFileWithExpenses, int loggedUserId) : incomeFile(nameOfFileWithIncomes), expenseFile(nameOfFileWithExpenses), LOGGED_USER_ID(loggedUserId) {
+        loggedUserId = 0;
+        incomes = incomeFile.readIncomeTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
+        expenses = expenseFile.readExpenseTransactionsOfLoggedUserFromFile(LOGGED_USER_ID);
+        amountOfIncomesTransactions = 0;
+        amountOfExpensesTransactions = 0;
+    };
+
+    DateManager dateManager;
+    char selectOptionFromUserMenu();
+    void addDetailsOfIncomeTransaction();
+    void addDetailsOfExpenseTransaction();
+    void printCurrentMonthBalance();
     void printLastMonthBalance();
     void printBalanceForChoosenPeriod();
-    void countFirstDayOfCurrentMonth();
-    void printIncomeBalance(float incomeBalance);
-    void printExpenseBalance(float expenseBalance);
-    void printBalance(float balance);
-    void showAllTransactions();//??
-    void countCurrentMonthBalance(int choosenBeginDate, int endDate);
-     void printAllIncomeTransactions();
-     void printAllExpenseTransactions();
 };
 
 
 
 #endif
+
+/*
+ void setAmountOfIncomesTransactions(int newAmountOfTransactions);
+ void setAmountOfExpensesTransactions(int newAmountOfTransactions);
+*/

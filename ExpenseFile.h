@@ -24,7 +24,7 @@ protected:
 public:
 
     ExpenseFile(string nameOfFile) : NAME_OF_FILE(nameOfFile) {
-    int lastExpenseId = 0;
+    lastExpenseId = 0;
     }
     string getFileName();
     bool checkIfFileIsEmpty();

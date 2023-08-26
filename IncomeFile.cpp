@@ -1,16 +1,16 @@
-#include "TransactionFile.h"
+#include "IncomeFile.h"
 #include "TransactionManager.h"
 #include "SupportiveMethods.h"
 
-string TransactionFile::getFileName() {
+string IncomeFile::getFileName() {
     return NAME_OF_FILE;
 }
 
-int TransactionFile::getLastTransactionId() {
-    return lastTransactionId;
+int IncomeFile::getLastIncomeId() {
+    return lastIncomeId;
 }
 
-void TransactionFile::addTransactionToFile(Transaction transaction) {//nazwa pliku
+void IncomeFile::addTransactionToFile(Income income) {
 
     bool fileExists = xml.Load(NAME_OF_FILE);
 
@@ -20,48 +20,48 @@ void TransactionFile::addTransactionToFile(Transaction transaction) {//nazwa pli
     }
     xml.FindElem();
     xml.IntoElem();
-    xml.AddElem("Transaction");
+    xml.AddElem("Income");
     xml.IntoElem();
-    xml.AddElem("TransactionId", transaction.getTransactionId());
-    xml.AddElem("UserId", transaction.getUserId());
-    xml.AddElem("Date", transaction.getDate());
-    xml.AddElem("Reason", transaction.getReason());
-    xml.AddElem("Quota", transaction.getQuota());
+    xml.AddElem("IncomeId", income.getIncomeId());
+    xml.AddElem("UserId", income.getUserId());
+    xml.AddElem("Date", income.getDate());
+    xml.AddElem("Reason", income.getReason());
+    xml.AddElem("Quota", income.getQuota());
     xml.Save(NAME_OF_FILE);
-    lastTransactionId++;
+    lastIncomeId++;
 }
 
-vector <Transaction> TransactionFile::readIncomeTransactionsOfLoggedUserFromFile(int loggedUserId) {
-    Transaction transaction;
-    vector <Transaction> transactions;
+vector <Income> IncomeFile::readIncomeTransactionsOfLoggedUserFromFile(int loggedUserId) {
+    Income income;
+    vector <Income> incomes;
     string dataOfLastTransaction = "";
 
     if (xml.Load(NAME_OF_FILE)) {
         xml.FindElem();
         xml.IntoElem();
 
-        while (xml.FindElem("Transaction")) {
+        while (xml.FindElem("Income")) {
             xml.IntoElem();
-            xml.FindElem("TransactionId");
-            transaction.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
+            xml.FindElem("IncomeId");
+            income.setIncomeId(atoi(MCD_2PCSZ(xml.GetData())));
             xml.FindElem("UserId");
              if (atoi(MCD_2PCSZ(xml.GetData())) == loggedUserId){
-                transaction.setUserId(atoi(MCD_2PCSZ(xml.GetData())));
+                income.setUserId(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Date");
-                transaction.setDate(atoi(MCD_2PCSZ(xml.GetData())));
+                income.setDate(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Reason");
-                transaction.setReason(xml.GetData());
+                income.setReason(xml.GetData());
                 xml.FindElem("Quota");
-                transaction.setQuota(SupportiveMethods::convertStringToFloat(MCD_2PCSZ(xml.GetData())));
+                income.setQuota(SupportiveMethods::convertStringToFloat(MCD_2PCSZ(xml.GetData())));
                 xml.OutOfElem();
 
-                transactions.push_back(transaction);
+                incomes.push_back(income);
             }
         }
     }
     if (dataOfLastTransaction != "")
-       lastTransactionId = transaction.getTransactionId();
-    return transactions;
+       lastIncomeId = income.getIncomeId();
+    return incomes;
 }
 
 

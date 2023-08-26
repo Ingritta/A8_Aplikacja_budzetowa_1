@@ -1,32 +1,32 @@
-#ifndef TRANSACTION_H
-#define TRANSACTION_H
+#ifndef INCOME_H
+#define INCOME_H
 
 #include <iostream>
 #include "DateManager.h"
 
 using namespace std;
 
-class Transaction {
-    int transactionId;
+class Income {
+    int incomeId;
     int userId;
     int date;
     string reason;
     float quota;
 
 public:
-    Transaction (int transactionId = 0, int userId = 0, int date = 0, string reason = "", float quota = 0) {
-        this -> transactionId = transactionId;
+    Income (int incomeId = 0, int userId = 0, int date = 0, string reason = "", float quota = 0) {
+        this -> incomeId = incomeId;
         this -> userId = userId;
         this -> date = date;
         this -> reason = reason;
         this -> quota = quota;
     }
-    int getTransactionId();
+    int getIncomeId();
     int getUserId();
     int getDate();
     string getReason();
     float getQuota();
-    void setTransactionId(int newId);
+    void setIncomeId(int newId);
     void setUserId(int newLoggedUserId);
     void setDate(int newDate);
     void setReason(string newName);

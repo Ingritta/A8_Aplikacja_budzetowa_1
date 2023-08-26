@@ -8,7 +8,7 @@ int ExpenseFile::getLastExpenseId() {
     return lastExpenseId;
 }
 
-void ExpenseFile::addExpenseToFile(Expense expense) {//nazwa pliku
+void ExpenseFile::addExpenseToFile(Expense expense) {
 
     bool fileExists = xml.Load(NAME_OF_FILE);
 

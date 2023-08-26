@@ -42,6 +42,8 @@
 		<Unit filename="ExpenseFilee.h" />
 		<Unit filename="FileWithUsers.cpp" />
 		<Unit filename="FileWithUsers.h" />
+		<Unit filename="Income.cpp" />
+		<Unit filename="Income.h" />
 		<Unit filename="Markup.cpp" />
 		<Unit filename="Markup.h" />
 		<Unit filename="SupportiveMethods.cpp" />

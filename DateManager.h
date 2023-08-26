@@ -10,7 +10,7 @@
 #include <conio.h>
 
 #include "SupportiveMethods.h"
-#include "Transaction.h"
+#include "Income.h"
 
 using namespace std;
 
