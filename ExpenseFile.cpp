@@ -62,28 +62,3 @@ vector <Expense> ExpenseFile::readExpenseTransactionsOfLoggedUserFromFile(int lo
     return expenses;
 }
 
-
-/*
-Transaction TransactionFile::getDataOfTransaction(int loggedUserId) {
-    Transaction transaction;
-
-    if (xml.Load(NAME_OF_FILE)) {
-        xml.FindElem();
-        xml.IntoElem();
-        xml.FindElem("Transacactions");
-        xml.IntoElem();
-        xml.FindElem("TransacactionId");
-        transaction.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
-        xml.FindElem("UserId");
-        transaction.setUserId(atoi(MCD_2PCSZ(xml.GetData())));
-        xml.FindElem("Date");
-        transaction.setDate(atoi(MCD_2PCSZ(xml.GetData())));
-        xml.FindElem("Reason");
-        transaction.setReason(xml.GetData());
-        xml.FindElem("Quota");
-        transaction.setQuota(SupportiveMethods::convertStringToFloat(MCD_2PCSZ(xml.GetData())));
-        xml.OutOfElem();
-    }
-    return transaction;
-}
-*/

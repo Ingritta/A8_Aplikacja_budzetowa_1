@@ -38,9 +38,6 @@ public:
     int cutDashes(string date);
     int checkDetailsOfWrittenDate();
     int countFirstDayOfCurrentMonth();
-
-
-
 };
 
 #endif

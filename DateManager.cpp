@@ -23,7 +23,7 @@ const string DateManager::getDateFromOs() {
 
 bool DateManager::checkIfDateIsWrittenProperly(string writtenDate) {
     if (writtenDate.length() != 10) {
-        cout << "Niepoprawna ilosc znakow. Wpisz date w formacie YYYY-MM-DD!" << endl;
+        cout << endl << "Niepoprawna ilosc znakow. Wpisz date w formacie YYYY-MM-DD!" << endl;
         return false;
     }
     for (size_t signPosition = 0; signPosition <= writtenDate.length(); signPosition++) {
@@ -31,7 +31,7 @@ bool DateManager::checkIfDateIsWrittenProperly(string writtenDate) {
             if(signPosition == 4 || signPosition == 7) {
                 continue;
             } else {
-                cout << "Niepoprawny zapis daty. Wpisz date w formacie YYYY-MM-DD!" << endl;
+                cout << endl << "Niepoprawny zapis daty. Wpisz date w formacie YYYY-MM-DD!" << endl;
                 return false;
             }
         }
@@ -41,22 +41,22 @@ bool DateManager::checkIfDateIsWrittenProperly(string writtenDate) {
 
 int DateManager::checkDetailsOfWrittenDate() {
     if (SupportiveMethods::cutDashes(getDateFromOs()) < SupportiveMethods::cutDashes(writtenDate)) {
-        cout << "Wpisany rok jest nieprawidlowy - data trasakcji jest pozniejsza od dzaty dzisiejszej. Wpisz poprawny rok!" << endl;
+        cout << endl << "Wpisany rok jest nieprawidlowy - data trasakcji jest pozniejsza od daty dzisiejszej. Wpisz poprawny rok!" << endl;
         return false;
     } else if (cutMonth(writtenDate) > 12) {
-        cout << "Wpisany miesiac jest nieprawidlowy. Wpisz poprawny miesiac!" << endl;
+        cout << endl << "Wpisany miesiac jest nieprawidlowy. Wpisz poprawny miesiac!" << endl;
         return false;
     } else if (checkIfIsLeapYear() && cutMonth(writtenDate) == 2 && cutDay(writtenDate) > 29) {
-        cout << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
+        cout << endl << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
         return false;
     } else if (!checkIfIsLeapYear() && cutMonth(writtenDate) == 2 && cutDay(writtenDate) > 28) {
-        cout << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
+        cout << endl << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
         return false;
     } else if ((cutMonth(writtenDate) == 4 || cutMonth(writtenDate) == 6 || cutMonth(writtenDate) == 9 || cutMonth(writtenDate) == 11) && cutDay(writtenDate) > 30) {
-        cout << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
+        cout << endl << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
         return false;
     } else if (cutDay(writtenDate) > 31) {
-        cout << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
+        cout << endl << "Wpisany dzien jest nieprawidlowy. Wpisz poprawny dzien!" << endl;
         return false;
     }
     return true;

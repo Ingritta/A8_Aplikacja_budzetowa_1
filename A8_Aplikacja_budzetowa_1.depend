@@ -35,7 +35,7 @@
 1686923826 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\user.cpp
 	"User.h"
 
-1693132054 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.cpp
+1693140503 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.cpp
 	"UserManager.h"
 
 1693082286 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\usermanager.h
@@ -57,7 +57,7 @@
 	"XmlFile.h"
 	"TransactionManager.h"
 
-1693082061 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\datemanager.h
+1693141546 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\datemanager.h
 	<iostream>
 	<ctime>
 	<sstream>
@@ -74,10 +74,10 @@
 1692034249 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\date.cpp
 	"Date.h"
 
-1693071769 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\datemanager.cpp
+1693141544 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\datemanager.cpp
 	"DateManager.h"
 
-1692540223 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\main.cpp
+1693140957 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\main.cpp
 	<iostream>
 	"ApplicationManager.h"
 
@@ -146,7 +146,7 @@
 1692090677 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transaction.cpp
 	"Transaction.h"
 
-1693081662 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transactionmanager.cpp
+1693141414 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\transactionmanager.cpp
 	"TransactionManager.h"
 
 1693081484 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\xmlfile.cpp
@@ -198,7 +198,7 @@
 1692538139 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\expense.cpp
 	"Expense.h"
 
-1693073794 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\expensefile.cpp
+1693140957 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\expensefile.cpp
 	"ExpenseFile.h"
 
 1693068061 c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\income.h
@@ -217,7 +217,7 @@
 1693067862 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\income.cpp
 	"Income.h"
 
-1693081690 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\incomefile.cpp
+1693140957 source:c:\users\my laptop\desktop\programista\programy (4)\a8_aplikacja_budzetowa_1\incomefile.cpp
 	"IncomeFile.h"
 	"TransactionManager.h"
 	"SupportiveMethods.h"

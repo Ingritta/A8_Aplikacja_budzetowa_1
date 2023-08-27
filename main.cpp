@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    ApplicationManager ApplicationManager ("Users.xml", "Transactions.xml", "Expenses.xml");
+    ApplicationManager ApplicationManager ("Users.xml", "Incomes.xml", "Expenses.xml");
 
     char choice;
 

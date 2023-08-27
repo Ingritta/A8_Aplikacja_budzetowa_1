@@ -65,7 +65,7 @@ Income TransactionManager::giveDataOfNewIncomeTransaction() {
     income.setUserId(LOGGED_USER_ID);
     income.setDate(askAboutDate());
 
-    cout << "Podaj zrodlo wplywu: ";
+    cout << endl << "Podaj zrodlo wplywu: ";
     income.setReason(SupportiveMethods::getLine());
 
     income.setQuota(correctQuota());
@@ -81,7 +81,7 @@ Expense TransactionManager::giveDataOfNewExpenseTransaction() {
     expense.setUserId(LOGGED_USER_ID);
     expense.setDate(askAboutDate());
 
-    cout << "Przeznaczenie : ";
+    cout << endl << "Przeznaczenie: ";
     expense.setReason(SupportiveMethods::getLine());
 
     expense.setQuota(correctQuota());
@@ -93,7 +93,7 @@ float TransactionManager::correctQuota() {
     string writtenQuota = "";
     float quota = 0;
     do {
-        cout << "Podaj kwote: ";
+        cout << endl << "Podaj kwote: ";
         writtenQuota = SupportiveMethods::getLine();
     } while (!checkWrittenQuota(writtenQuota));
 
@@ -114,14 +114,14 @@ bool TransactionManager::checkWrittenQuota(string writtenQuota) {// dlaczego jak
             k++;
 
         } else if(!isdigit(writtenQuota[i]) && writtenQuota[i] != '.') {
-            cout << "Wpisano nieprawidlowa wartosc" << endl;
+            cout << endl << "Wpisano nieprawidlowa wartosc!" << endl;
             return false;
 
         } else if (writtenQuota[i] == '.') {
             k++;
 
         } else if (k > 1) {
-            cout << "Wpisano nieprawidlowa wartosc" << endl;
+            cout << endl << "Wpisano nieprawidlowa wartosc!" << endl;
             return false;
         }
     }
@@ -147,17 +147,17 @@ void TransactionManager::printDetailsOfExpenseTransaction(Expense expense) {
 int TransactionManager::askAboutDate() {
     int dateOfTransaction = 0;
     string date = "";
-    cout << "Jezeli chcesz wpisac date inna niz dzisiejsza wpisz 't', jesli nie wcisnij dowolny klawisz." << endl;
+    cout << "Jezeli chcesz wpisac date inna niz dzisiejsza wpisz 't', jesli nie wcisnij dowolny klawisz: ";
     if(SupportiveMethods::loadChar() == 't') {
         do {
-            cout << "Podaj date: ";
+            cout << endl << "Podaj date: ";
             dateManager.setWrittenDate(SupportiveMethods::getLine());
             date = dateManager.getWrittenDate();
         } while (!dateManager.checkIfDateIsWrittenProperly(date) || !dateManager.checkDetailsOfWrittenDate());
         dateOfTransaction = SupportiveMethods::cutDashes(date);
     } else {
         dateOfTransaction = SupportiveMethods::cutDashes(dateManager.getDateFromOs());
-        cout << "Data transakcji: " << dateManager.getDateFromOs() << endl;
+        cout << endl << "Data transakcji: " << dateManager.getDateFromOs() << endl;
     }
     return dateOfTransaction;
 }
