@@ -46,7 +46,7 @@ void ApplicationManager::printCurrentMonthBalance() {
 }
 
 void ApplicationManager::printLastMonthBalance() {
-    transactionManager->printLastMonthBalance();
+    transactionManager -> printLastMonthBalance();
 }
 
 void ApplicationManager::printBalanceForChoosenPeriod() {

@@ -23,21 +23,22 @@ public:
         delete transactionManager;
         transactionManager = NULL;
     };
-    void userRegistration();
-    void changePasswordOfLoggedUser();
     char selectOptionFromMainMenu();
     char selectOptionFromUserMenu();
-    bool checkIfUserIsLogged();
-    void userLogout();
     int getLoggedUserId();
+    bool checkIfUserIsLogged();
+    void userRegistration();
+    void changePasswordOfLoggedUser();
+    void userLogout();
     void userLogin();
-    //void showAllUsers();
     void addDetailsOfIncomeTransaction();
     void addDetailsOfExpenseTransaction();
     void printCurrentMonthBalance();
     void printLastMonthBalance();
     void printBalanceForChoosenPeriod();
 };
+
+//void showAllUsers();
 
 #endif
 
