@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Incomes.xml>
+<Income>
+<IncomeId>1</IncomeId>
+<UserId>1</UserId>
+<Date>20230828</Date>
+<Reason>3</Reason>
+<Quota>3</Quota>
+</Income>
+<Income>
+<IncomeId>2</IncomeId>
+<UserId>1</UserId>
+<Date>20230828</Date>
+<Reason>3</Reason>
+<Quota>3</Quota>
+</Income>
+<Income>
+<IncomeId>3</IncomeId>
+<UserId>1</UserId>
+<Date>20230828</Date>
+<Reason>3</Reason>
+<Quota>3</Quota>
+</Income>
+</Incomes.xml>

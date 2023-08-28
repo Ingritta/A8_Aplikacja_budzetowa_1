@@ -165,7 +165,7 @@ int TransactionManager::askAboutDate() {
 void TransactionManager::printCurrentMonthBalance() {
 
     choosenBeginDate = dateManager.countFirstDayOfCurrentMonth();
-    endDate = SupportiveMethods::cutDashes(dateManager.getDateFromOs()) + 1;
+    endDate = SupportiveMethods::cutDashes(dateManager.getDateFromOs());
 
     countIncomesBalance(incomes);
 
@@ -182,7 +182,7 @@ void TransactionManager::printLastMonthBalance() {
 
     countIncomesBalance(incomes);
 
-    choosenBeginDate = SupportiveMethods::convertStringToInt(dateManager.countLastMonth()) + 1;
+    choosenBeginDate = SupportiveMethods::convertStringToInt(dateManager.countLastMonth());
     countExpensesBalance(expenses);
 
     printBalance();
@@ -208,37 +208,47 @@ void TransactionManager::printBalanceForChoosenPeriod() {
 void TransactionManager::countIncomesBalance(vector <Income> incomes) {
     incomeBalance = 0;
     system("cls");
-
-    cout << "--------------------------------------------------" << endl;
-    cout << "                    >> WPLYWY <<" << endl;
-    cout << "--------------------------------------------------" << endl;
-    while(choosenBeginDate <= endDate) {
-        for (vector <Income>::iterator  itr = incomes.begin(); itr != incomes.end();  itr++ ) {
-            if (itr -> getDate() == choosenBeginDate) {
-                printDetailsOfIncomeTransaction(*itr);
-                incomeBalance += itr -> getQuota();
-                amountOfIncomesTransactions++;
+    if(incomes.empty()) {
+        cout << "--------------------------------------------------" << endl;
+        cout << "               >> BRAK TRANSAKCJI <<              " << endl;
+        cout << "--------------------------------------------------" << endl;
+    } else {
+        cout << "--------------------------------------------------" << endl;
+        cout << "                    >> WPLYWY <<" << endl;
+        cout << "--------------------------------------------------" << endl;
+        while(choosenBeginDate <= endDate) {
+            for (vector <Income>::iterator  itr = incomes.begin(); itr != incomes.end();  itr++ ) {
+                if (itr -> getDate() == choosenBeginDate) {
+                    printDetailsOfIncomeTransaction(*itr);
+                    incomeBalance += itr -> getQuota();
+                    amountOfIncomesTransactions++;
+                }
+                choosenBeginDate++;
             }
         }
-        choosenBeginDate++;
     }
 }
 
 void TransactionManager::countExpensesBalance(vector <Expense> expenses) {
     expenseBalance = 0;
-
-    cout << "--------------------------------------------------" << endl;
-    cout << "                   >> WYDATKI <<" << endl;
-    cout << "--------------------------------------------------" << endl;
-    while(choosenBeginDate <= endDate) {
-        for (vector <Expense>::iterator  itr = expenses.begin(); itr != expenses.end(); itr++) {
-            if (itr -> getDate() == choosenBeginDate) {
-                printDetailsOfExpenseTransaction(*itr);
-                expenseBalance += itr -> getQuota();
-                amountOfExpensesTransactions++;
+    if(expenses.empty()) {
+        cout << "--------------------------------------------------" << endl;
+        cout << "               >> BRAK TRANSAKCJI <<              " << endl;
+        cout << "--------------------------------------------------" << endl;
+    } else {
+        cout << "--------------------------------------------------" << endl;
+        cout << "                   >> WYDATKI <<" << endl;
+        cout << "--------------------------------------------------" << endl;
+        while(choosenBeginDate <= endDate) {
+            for (vector <Expense>::iterator  itr = expenses.begin(); itr != expenses.end(); itr++) {
+                if (itr -> getDate() == choosenBeginDate) {
+                    printDetailsOfExpenseTransaction(*itr);
+                    expenseBalance += itr -> getQuota();
+                    amountOfExpensesTransactions++;
+                }
             }
+            choosenBeginDate++;
         }
-        choosenBeginDate++;
     }
 }
 
