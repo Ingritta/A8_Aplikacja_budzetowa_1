@@ -165,7 +165,7 @@ int TransactionManager::askAboutDate() {
 void TransactionManager::printCurrentMonthBalance() {
 
     choosenBeginDate = dateManager.countFirstDayOfCurrentMonth();
-    endDate = SupportiveMethods::cutDashes(dateManager.getDateFromOs());
+    endDate = SupportiveMethods::cutDashes(dateManager.getDateFromOs()) + 1;
 
     countIncomesBalance(incomes);
 
@@ -182,7 +182,7 @@ void TransactionManager::printLastMonthBalance() {
 
     countIncomesBalance(incomes);
 
-    choosenBeginDate = SupportiveMethods::convertStringToInt(dateManager.countLastMonth());
+    choosenBeginDate = SupportiveMethods::convertStringToInt(dateManager.countLastMonth()) + 1;
     countExpensesBalance(expenses);
 
     printBalance();
@@ -190,11 +190,11 @@ void TransactionManager::printLastMonthBalance() {
 
 void TransactionManager::printBalanceForChoosenPeriod() {
 
-    cout << "Podaj date poczatkowa: " << endl;
+    cout << endl << "Podaj date poczatkowa: " << endl;
     int beginDate = askAboutDate();
     choosenBeginDate = beginDate;
 
-    cout << "Podaj date koncowa: " << endl;
+    cout << endl << "Podaj date koncowa: " << endl;
     endDate = askAboutDate();
 
     countIncomesBalance(incomes);
